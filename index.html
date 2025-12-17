@@ -1,119 +1,192 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Gway Paints</title>
-  <meta name="description" content="Custom curb address paint — Plain, Texas Flag, American Flag, Twin Stars." />
+  <meta name="description" content="Custom curb address paint — Plain, Texas Flag, American Flag, Twin Stars. Add-ons available." />
 
   <style>
     :root{
       --bg1:#0b0c10;
-      --bg2:#111522;
-      --card:#141823;
+      --bg2:#10131a;
+      --card:#141823cc;
       --text:#e8eaf0;
       --muted:#a7adbd;
       --blue:#4aa3ff;
       --green:#3ddc84;
-      --border:rgba(255,255,255,.10);
-      --radius:18px;
+      --shadow: 0 10px 35px rgba(0,0,0,.35);
+      --radius: 20px;
     }
-
-    *{ box-sizing:border-box; }
+    *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       color:var(--text);
-      background: linear-gradient(180deg, var(--bg1), var(--bg2));
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(74,163,255,.12), transparent 60%),
+        radial-gradient(900px 500px at 90% 10%, rgba(61,220,132,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
       min-height:100vh;
     }
 
     header{
+      position:sticky; top:0; z-index:30;
       background:#000;
-      padding:20px 16px;
-      border-bottom:1px solid var(--border);
+      border-bottom: 1px solid rgba(255,255,255,.08);
     }
-    .wrap{ max-width:1100px; margin:0 auto; }
-    h1{
+    .banner{
+      position:relative;
+      padding:18px 18px 16px;
+      overflow:hidden;
+    }
+    .banner::before{
+      content:"";
+      position:absolute; inset:-40px;
+      background:
+        radial-gradient(circle at 15% 40%, rgba(255,255,255,.10) 0 8px, transparent 9px),
+        radial-gradient(circle at 35% 70%, rgba(255,255,255,.10) 0 10px, transparent 11px),
+        radial-gradient(circle at 55% 45%, rgba(255,255,255,.10) 0 6px, transparent 7px),
+        radial-gradient(circle at 75% 65%, rgba(255,255,255,.10) 0 12px, transparent 13px),
+        radial-gradient(circle at 85% 30%, rgba(255,255,255,.10) 0 7px, transparent 8px);
+      opacity:.9;
+      pointer-events:none;
+      transform: rotate(-2deg);
+    }
+    .brand{
+      position:relative;
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:14px;
+      max-width:1100px;
+      margin:0 auto;
+    }
+    .brand h1{
       margin:0;
-      font-size:46px;
-      font-family: "Brush Script MT","Segoe Script","Snell Roundhand",cursive;
+      font-size: clamp(34px, 6vw, 56px);
       letter-spacing:.5px;
+      color:#fff;
+      font-family: "Brush Script MT", "Segoe Script", "Snell Roundhand", cursive;
+      font-weight: 600;
+      line-height: 1;
+      text-shadow: 0 6px 30px rgba(0,0,0,.6);
+      user-select:none;
     }
-    header p{
-      margin:6px 0 0;
-      color:var(--muted);
-      font-size:14px;
+    .brand .tagline{
+      margin:0 0 6px;
+      color: rgba(255,255,255,.75);
+      font-size: 14px;
+      text-align:right;
+      max-width: 360px;
     }
 
-    main{ max-width:1100px; margin:20px auto 80px; padding:0 16px; }
-
-    .grid{
+    main{
+      max-width:1100px;
+      margin: 18px auto 80px;
+      padding: 0 16px;
+    }
+    .topRow{
       display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: 1.2fr .8fr;
       gap:16px;
+      margin-top: 14px;
+    }
+    @media (max-width: 920px){
+      .topRow{grid-template-columns:1fr}
+      .brand{flex-direction:column; align-items:flex-start}
+      .brand .tagline{text-align:left; margin:8px 0 0}
     }
 
     .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
+      background: var(--card);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       overflow:hidden;
+      backdrop-filter: blur(8px);
     }
+    .cardHeader{
+      padding: 14px 16px 10px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px;
+    }
+    .cardHeader h2{ margin:0; font-size:16px; }
+    .hint{
+      margin:0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.35;
+      padding: 12px 16px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:16px;
+      padding: 12px;
+    }
+    @media (max-width: 720px){ .grid{grid-template-columns:1fr} }
+
+    .product{
+      background: rgba(10,12,18,.55);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height: 100%;
+    }
+    .pBody{padding: 12px 14px 14px}
+    .pTitle{
+      display:flex; align-items:flex-start; justify-content:space-between;
+      gap:10px;
+    }
+    .pTitle h3{ margin:0; font-size:16px; line-height:1.2; }
+    .price{ color: var(--blue); font-weight: 800; white-space:nowrap; }
+    .desc{ margin: 8px 0 10px; color: var(--muted); font-size:13px; line-height:1.35; }
 
     /* Carousel */
     .carousel{
       position:relative;
-      overflow:hidden;
-      background:#0c0f16;
+      background: #0c0f16;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      touch-action: pan-y;
+      user-select:none;
     }
     .track{
       display:flex;
-      transition: transform .28s ease;
-      will-change: transform;
+      width:100%;
+      transform: translateX(0);
+      transition: transform .25s ease;
     }
     .slide{
       min-width:100%;
       aspect-ratio: 16/9;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       position:relative;
     }
     .slide img{
       width:100%;
       height:100%;
-      object-fit:cover;
+      object-fit: cover;
       display:block;
     }
-    .fallback{
+    .placeholder{
       width:100%;
       height:100%;
       display:flex;
       align-items:center;
       justify-content:center;
-      color:rgba(255,255,255,.75);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      font-size:13px;
+      background:
+        radial-gradient(500px 240px at 20% 20%, rgba(74,163,255,.18), transparent 60%),
+        radial-gradient(500px 240px at 80% 80%, rgba(61,220,132,.14), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      color: rgba(255,255,255,.75);
+      font-size: 13px;
+      letter-spacing:.2px;
     }
-
-    .nav{
-      position:absolute;
-      top:50%;
-      transform: translateY(-50%);
-      width:36px; height:36px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.45);
-      color:#fff;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-    .nav:hover{ background: rgba(0,0,0,.60); }
-    .prev{ left:10px; }
-    .next{ right:10px; }
-    .nav[disabled]{ opacity:.35; cursor:not-allowed; }
-
     .dots{
       position:absolute;
       left:0; right:0; bottom:10px;
@@ -122,350 +195,676 @@
       gap:6px;
       pointer-events:none;
     }
-    .dot{
-      width:7px; height:7px;
-      border-radius:99px;
-      background: rgba(255,255,255,.35);
-    }
+    .dot{ width:7px; height:7px; border-radius: 99px; background: rgba(255,255,255,.35); }
     .dot.active{ background: rgba(255,255,255,.9); }
 
-    .body{ padding:14px; }
-    .title{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      font-weight:900;
-      font-size:16px;
-    }
-    .price{ color:var(--blue); white-space:nowrap; }
-    .desc{
-      margin:8px 0 12px;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.35;
-    }
-
-    .btn{
-      width:100%;
-      padding:11px 12px;
+    .navBtn{
+      position:absolute;
+      top:50%;
+      transform: translateY(-50%);
       border:none;
-      border-radius:14px;
-      background: rgba(74,163,255,.22);
+      width:38px; height:38px;
+      border-radius: 12px;
+      background: rgba(0,0,0,.35);
       color:#fff;
-      font-weight:900;
       cursor:pointer;
-      border:1px solid rgba(74,163,255,.25);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      backdrop-filter: blur(6px);
+      border:1px solid rgba(255,255,255,.10);
     }
-    .btn:hover{ background: rgba(74,163,255,.28); }
-    .btnGreen{
-      background: rgba(61,220,132,.18);
-      border:1px solid rgba(61,220,132,.25);
-    }
-    .btnGreen:hover{ background: rgba(61,220,132,.24); }
+    .navBtn:hover{background: rgba(0,0,0,.5)}
+    .navBtn:active{transform: translateY(-50%) scale(.98)}
+    .prev{left:10px}
+    .next{right:10px}
+    .navBtn[disabled]{ opacity:.35; cursor:not-allowed; }
 
-    .cart{
-      margin-top:22px;
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      padding:16px;
+    /* Controls */
+    .row{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      margin-top:10px;
     }
-    .cart h2{ margin:0 0 10px; font-size:16px; }
-    .cartList{ display:flex; flex-direction:column; gap:8px; }
+    .qty{ display:flex; gap:8px; align-items:center; }
+    .qty input{
+      width:72px;
+      padding:10px 10px;
+      border-radius: 12px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.25);
+      color: var(--text);
+      outline:none;
+    }
+    .btn{
+      border:none;
+      padding:10px 12px;
+      border-radius: 14px;
+      cursor:pointer;
+      background: rgba(255,255,255,.10);
+      color: var(--text);
+      border:1px solid rgba(255,255,255,.12);
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      font-weight:700;
+    }
+    .btn:hover{background: rgba(255,255,255,.14)}
+    .btnPrimary{
+      background: rgba(74,163,255,.18);
+      border-color: rgba(74,163,255,.25);
+    }
+
+    .select, .checkbox{
+      width:100%;
+      margin-top:8px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      padding:10px 10px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      color: var(--text);
+      font-size: 14px;
+    }
+    .select select{
+      flex:1;
+      margin-left:10px;
+      background: transparent;
+      border:none;
+      color: var(--text);
+      outline:none;
+      font-weight:700;
+    }
+    .select option{color:#000}
+    .checkbox input{transform: scale(1.1)}
+    .addonPrice{ color: var(--blue); font-weight:800; margin-left:8px; white-space:nowrap; }
+
+    /* Cart */
+    .cartBody{padding: 12px 16px 16px}
+    .cartList{ display:flex; flex-direction:column; gap:10px; margin-top:10px; }
     .cartItem{
       display:flex;
       justify-content:space-between;
+      gap:10px;
+      padding:10px 12px;
+      border-radius: 14px;
       background: rgba(0,0,0,.25);
       border:1px solid rgba(255,255,255,.10);
-      border-radius:14px;
-      padding:10px 12px;
-      font-weight:800;
     }
+    .cartItem small{color: var(--muted)}
     .totalRow{
       display:flex;
       justify-content:space-between;
+      align-items:center;
       margin-top:12px;
       padding-top:12px;
       border-top:1px solid rgba(255,255,255,.10);
-      font-weight:900;
+      font-weight:800;
     }
-    .totalRow span:last-child{ color:var(--green); }
+    .totalRow span:last-child{color: var(--green)}
+
+    .contactBtn{
+      width:100%;
+      margin-top:12px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      border:1px solid rgba(74,163,255,.30);
+      background: rgba(74,163,255,.18);
+      color:#fff;
+      font-weight:900;
+      font-size: 15px;
+      cursor:pointer;
+    }
+    .contactBtn:hover{background: rgba(74,163,255,.24)}
+    .tiny{
+      color: var(--muted);
+      font-size: 12px;
+      line-height:1.35;
+      margin-top: 10px;
+    }
 
     /* Modal */
     .modal{
       position:fixed; inset:0;
-      background: rgba(0,0,0,.65);
+      background: rgba(0,0,0,.6);
       display:none;
       align-items:center;
       justify-content:center;
-      padding:18px;
-      z-index:50;
+      padding: 18px;
+      z-index: 60;
     }
-    .modal.open{ display:flex; }
-    .modalBox{
+    .modal.open{display:flex}
+    .modalCard{
       width:min(520px, 100%);
-      background: rgba(15,18,26,.95);
-      border:1px solid rgba(255,255,255,.12);
       border-radius: 20px;
+      background: rgba(15,18,26,.95);
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
       overflow:hidden;
     }
     .modalHead{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
       padding:14px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
       border-bottom:1px solid rgba(255,255,255,.10);
     }
+    .modalHead strong{font-size:15px}
     .x{
+      border:none;
       width:38px; height:38px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.12);
+      border-radius: 14px;
       background: rgba(255,255,255,.10);
       color:#fff;
       cursor:pointer;
-    }
-    .modalBody{ padding:14px 16px 16px; }
-    .muted{ color:var(--muted); font-size:13px; line-height:1.35; }
-    .callRow{
-      margin-top:12px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:space-between;
-      align-items:center;
-      padding:12px;
-      border-radius:16px;
-      background: rgba(0,0,0,.25);
       border:1px solid rgba(255,255,255,.10);
     }
-    .phone{ font-weight:1000; font-size:16px; }
-    a.callLink{
+    .modalBody{padding: 14px 16px 16px}
+    .callRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      background: rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 16px;
+      padding:12px 12px;
+      margin-top: 10px;
+    }
+    .phone{
+      font-weight: 900;
+      letter-spacing:.3px;
+      color:#fff;
+      font-size: 16px;
+    }
+    .callLink{
       text-decoration:none;
       padding:10px 12px;
-      border-radius:14px;
-      font-weight:900;
+      border-radius: 14px;
+      border:1px solid rgba(61,220,132,.35);
+      background: rgba(61,220,132,.16);
       color:#fff;
-      background: rgba(61,220,132,.18);
-      border:1px solid rgba(61,220,132,.28);
+      font-weight:900;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
     }
   </style>
 </head>
 
 <body>
-<header>
-  <div class="wrap">
-    <h1>Gway Paints</h1>
-    <p>Custom curb address paint • Clean • Professional</p>
-  </div>
-</header>
-
-<main>
-  <div class="grid">
-
-    <!-- Plain -->
-    <section class="card" data-title="Plain" data-price="20">
-      <div class="carousel">
-        <div class="track">
-          <div class="slide">
-            <img src="images/plain-1.webp" alt="Plain example 1"
-                 onerror="this.replaceWith(makeFallback('Plain photo missing'));">
-          </div>
-          <div class="slide">
-            <img src="images/plain-2.webp" alt="Plain example 2"
-                 onerror="this.replaceWith(makeFallback('Plain photo missing'));">
-          </div>
-        </div>
-        <button class="nav prev" type="button">‹</button>
-        <button class="nav next" type="button">›</button>
-        <div class="dots"><div class="dot active"></div><div class="dot"></div></div>
+  <header>
+    <div class="banner">
+      <div class="brand">
+        <h1>Gway Paints</h1>
+        <p class="tagline">Custom curb address paint • Clean finish • Add-ons available</p>
       </div>
-      <div class="body">
-        <div class="title"><span>Plain</span><span class="price">$20</span></div>
-        <div class="desc">Clean, readable curb numbers.</div>
-        <button class="btn addBtn" type="button">Add to Cart</button>
-      </div>
-    </section>
-
-    <!-- Texas -->
-    <section class="card" data-title="Texas Flag" data-price="40">
-      <div class="carousel">
-        <div class="track">
-          <div class="slide">
-            <img src="images/texas-1.webp" alt="Texas flag example 1"
-                 onerror="this.replaceWith(makeFallback('Texas photo missing'));">
-          </div>
-          <div class="slide">
-            <img src="images/texas-2.webp" alt="Texas flag example 2"
-                 onerror="this.replaceWith(makeFallback('Texas photo missing'));">
-          </div>
-        </div>
-        <button class="nav prev" type="button">‹</button>
-        <button class="nav next" type="button">›</button>
-        <div class="dots"><div class="dot active"></div><div class="dot"></div></div>
-      </div>
-      <div class="body">
-        <div class="title"><span>Texas Flag</span><span class="price">$40</span></div>
-        <div class="desc">Texas pride curb art.</div>
-        <button class="btn addBtn" type="button">Add to Cart</button>
-      </div>
-    </section>
-
-    <!-- American -->
-    <section class="card" data-title="American Flag" data-price="50">
-      <div class="carousel">
-        <div class="track">
-          <div class="slide">
-            <img src="images/american-1.jpg" alt="American flag example"
-                 onerror="this.replaceWith(makeFallback('American photo missing'));">
-          </div>
-        </div>
-      </div>
-      <div class="body">
-        <div class="title"><span>American Flag</span><span class="price">$50</span></div>
-        <div class="desc">Classic American flag design.</div>
-        <button class="btn addBtn" type="button">Add to Cart</button>
-      </div>
-    </section>
-
-    <!-- Twin Stars -->
-    <section class="card" data-title="Twin Stars" data-price="25">
-      <div class="carousel">
-        <div class="track">
-          <div class="slide">
-            <img src="images/twinstars-1.jpg" alt="Twin Stars example"
-                 onerror="this.replaceWith(makeFallback('Twin Stars photo missing'));">
-          </div>
-        </div>
-      </div>
-      <div class="body">
-        <div class="title"><span>Twin Stars</span><span class="price">$25</span></div>
-        <div class="desc">Twin star curb design — bold and clean.</div>
-        <button class="btn addBtn" type="button">Add to Cart</button>
-      </div>
-    </section>
-
-  </div>
-
-  <!-- Cart -->
-  <section class="cart">
-    <h2>Cart</h2>
-    <div class="cartList" id="cartList"></div>
-    <div class="totalRow">
-      <span>Total</span>
-      <span id="total">$0</span>
     </div>
-    <button class="btn btnGreen" id="contactNow" type="button">Contact Now</button>
-  </section>
-</main>
+  </header>
 
-<!-- Contact Modal -->
-<div class="modal" id="modal">
-  <div class="modalBox">
-    <div class="modalHead">
-      <strong>Contact Gway Paints</strong>
-      <button class="x" type="button" id="close">✕</button>
-    </div>
-    <div class="modalBody">
-      <div class="muted">Call/text to place your order. Tell me your address and which design you want.</div>
-      <div class="callRow">
-        <div>
-          <div class="muted" style="margin-bottom:4px;">Call / Text</div>
-          <div class="phone">+1 682 816 5741</div>
+  <main>
+    <div class="topRow">
+
+      <!-- SERVICES (Coming Soon section REMOVED) -->
+      <section class="card">
+        <div class="cardHeader">
+          <h2>Services</h2>
+          <span style="color:var(--muted);font-size:13px;">Swipe photos ↔</span>
         </div>
-        <a class="callLink" href="tel:+16828165741">📞 Call Now</a>
+        <p class="hint">
+          Pick your service, choose add-ons, then hit <b>Contact Now</b>. Your phone number stays hidden until you click.
+        </p>
+
+        <div class="grid">
+
+          <!-- Plain -->
+          <article class="product" data-sku="plain" data-title="Plain" data-base="20">
+            <div class="carousel">
+              <div class="track">
+                <div class="slide"><img src="images/plain-1.webp" alt="Plain curb paint example 1" /></div>
+                <div class="slide"><img src="images/plain-2.webp" alt="Plain curb paint example 2" /></div>
+              </div>
+              <button class="navBtn prev" type="button" aria-label="Previous image">‹</button>
+              <button class="navBtn next" type="button" aria-label="Next image">›</button>
+              <div class="dots"><div class="dot active"></div><div class="dot"></div></div>
+            </div>
+
+            <div class="pBody">
+              <div class="pTitle"><h3>Plain</h3><div class="price">$20</div></div>
+              <div class="desc">Clean, readable address — simple and sharp.</div>
+
+              <label class="checkbox">
+                <span>Double-sided art <span class="addonPrice">+$20</span></span>
+                <input type="checkbox" class="doubleSided" />
+              </label>
+
+              <div class="row">
+                <div class="qty">
+                  <label for="qty-plain" style="color:var(--muted);font-size:13px;">Qty</label>
+                  <input id="qty-plain" type="number" min="1" value="1" class="qtyInput" />
+                </div>
+                <button class="btn btnPrimary addBtn" type="button">Add to Cart</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Texas Flag -->
+          <article class="product" data-sku="texas" data-title="Texas Flag" data-base="40">
+            <div class="carousel">
+              <div class="track">
+                <div class="slide"><img src="images/texas-1.webp" alt="Texas flag curb paint example 1" /></div>
+                <div class="slide"><img src="images/texas-2.webp" alt="Texas flag curb paint example 2" /></div>
+              </div>
+              <button class="navBtn prev" type="button" aria-label="Previous image">‹</button>
+              <button class="navBtn next" type="button" aria-label="Next image">›</button>
+              <div class="dots"><div class="dot active"></div><div class="dot"></div></div>
+            </div>
+
+            <div class="pBody">
+              <div class="pTitle"><h3>Texas Flag</h3><div class="price">$40</div></div>
+              <div class="desc">Texas pride style — bold and clean.</div>
+
+              <label class="checkbox">
+                <span>Double-sided art <span class="addonPrice">+$20</span></span>
+                <input type="checkbox" class="doubleSided" />
+              </label>
+
+              <div class="row">
+                <div class="qty">
+                  <label for="qty-texas" style="color:var(--muted);font-size:13px;">Qty</label>
+                  <input id="qty-texas" type="number" min="1" value="1" class="qtyInput" />
+                </div>
+                <button class="btn btnPrimary addBtn" type="button">Add to Cart</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- American Flag (fixed to .jpg) -->
+          <article class="product" data-sku="american" data-title="American Flag" data-base="50">
+            <div class="carousel">
+              <div class="track">
+                <div class="slide">
+                  <img src="images/american-1.jpg" alt="American flag curb paint example 1" />
+                </div>
+                <div class="slide">
+                  <div class="placeholder">American Flag — add 2nd photo later</div>
+                </div>
+              </div>
+              <button class="navBtn prev" type="button" aria-label="Previous image">‹</button>
+              <button class="navBtn next" type="button" aria-label="Next image">›</button>
+              <div class="dots"><div class="dot active"></div><div class="dot"></div></div>
+            </div>
+
+            <div class="pBody">
+              <div class="pTitle"><h3>American Flag</h3><div class="price">$50</div></div>
+              <div class="desc">Classic American flag layout — crisp and high-contrast.</div>
+
+              <label class="checkbox">
+                <span>Double-sided art <span class="addonPrice">+$20</span></span>
+                <input type="checkbox" class="doubleSided" />
+              </label>
+
+              <div class="row">
+                <div class="qty">
+                  <label for="qty-american" style="color:var(--muted);font-size:13px;">Qty</label>
+                  <input id="qty-american" type="number" min="1" value="1" class="qtyInput" />
+                </div>
+                <button class="btn btnPrimary addBtn" type="button">Add to Cart</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Twin Stars (photo added) -->
+          <article class="product" data-sku="twinstars" data-title="Twin Stars" data-base="25">
+            <div class="carousel">
+              <div class="track">
+                <div class="slide">
+                  <img src="images/twinstars-1.jpg" alt="Twin Stars curb paint example 1" />
+                </div>
+                <div class="slide">
+                  <div class="placeholder">Twin Stars — add 2nd photo later</div>
+                </div>
+              </div>
+              <button class="navBtn prev" type="button" aria-label="Previous image">‹</button>
+              <button class="navBtn next" type="button" aria-label="Next image">›</button>
+              <div class="dots"><div class="dot active"></div><div class="dot"></div></div>
+            </div>
+
+            <div class="pBody">
+              <div class="pTitle"><h3>Twin Stars</h3><div class="price">$25</div></div>
+              <div class="desc">Two-star design option — clean and unique.</div>
+
+              <label class="checkbox">
+                <span>Double-sided art <span class="addonPrice">+$20</span></span>
+                <input type="checkbox" class="doubleSided" />
+              </label>
+
+              <div class="row">
+                <div class="qty">
+                  <label for="qty-twinstars" style="color:var(--muted);font-size:13px;">Qty</label>
+                  <input id="qty-twinstars" type="number" min="1" value="1" class="qtyInput" />
+                </div>
+                <button class="btn btnPrimary addBtn" type="button">Add to Cart</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Topside Curb Art (re-uses american-1.jpg) -->
+          <article class="product" data-sku="topside" data-title="Topside Curb Art (One Side)" data-base="50">
+            <div class="carousel">
+              <div class="track">
+                <div class="slide">
+                  <img src="images/american-1.jpg" alt="Topside curb art American flag example" />
+                </div>
+                <div class="slide">
+                  <div class="placeholder">Topside — add Texas option photo later</div>
+                </div>
+              </div>
+              <button class="navBtn prev" type="button" aria-label="Previous image">‹</button>
+              <button class="navBtn next" type="button" aria-label="Next image">›</button>
+              <div class="dots"><div class="dot active"></div><div class="dot"></div></div>
+            </div>
+
+            <div class="pBody">
+              <div class="pTitle"><h3>Topside Curb Art (One Side)</h3><div class="price">$50</div></div>
+              <div class="desc">Topside design option. <b>Disclaimer:</b> this is for <b>one side</b> only.</div>
+
+              <label class="select">
+                <span>Design</span>
+                <select class="topsideDesign">
+                  <option value="Texas Flag">Texas Flag</option>
+                  <option value="American Flag" selected>American Flag</option>
+                </select>
+              </label>
+
+              <div class="row">
+                <div class="qty">
+                  <label for="qty-topside" style="color:var(--muted);font-size:13px;">Qty</label>
+                  <input id="qty-topside" type="number" min="1" value="1" class="qtyInput" />
+                </div>
+                <button class="btn btnPrimary addBtn" type="button">Add to Cart</button>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- CART + ADD-ONS -->
+      <aside class="card">
+        <div class="cardHeader">
+          <h2>Your Cart</h2>
+          <button class="btn" type="button" id="clearCart">Clear</button>
+        </div>
+
+        <div class="cartBody">
+          <div class="cartList" id="cartList"></div>
+
+          <div class="totalRow">
+            <span>Total</span>
+            <span id="total">$0</span>
+          </div>
+
+          <div style="margin-top:14px; font-weight:800;">Add-ons</div>
+
+          <label class="checkbox" style="margin-top:10px;">
+            <span>Border add-on <span class="addonPrice">+$5</span></span>
+            <input type="checkbox" id="addonBorder" />
+          </label>
+
+          <label class="select" style="margin-top:10px;">
+            <span>Top-down art add-on</span>
+            <select id="addonTopdown">
+              <option value="">None</option>
+              <option value="Texas Flag">Texas Flag (+$15)</option>
+              <option value="American Flag">American Flag (+$20)</option>
+            </select>
+          </label>
+
+          <div class="tiny">
+            Tip: Top-down art looks best if your curb has enough flat space above the numbers.
+          </div>
+
+          <button class="contactBtn" id="contactNow" type="button">Contact Now</button>
+          <div class="tiny">You’ll see the phone number only after clicking Contact Now.</div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modalCard">
+      <div class="modalHead">
+        <strong>Contact Gway Paints</strong>
+        <button class="x" type="button" id="closeModal">✕</button>
       </div>
-      <pre class="muted" id="summary" style="white-space:pre-wrap;margin-top:12px;"></pre>
+      <div class="modalBody">
+        <div style="color:var(--muted);font-size:13px;line-height:1.35;">
+          Tell me what you want (Plain / Texas / American / Twin Stars), your address, and any add-ons.
+        </div>
+
+        <div class="callRow">
+          <div>
+            <div style="color:var(--muted);font-size:12px;">Call / Text</div>
+            <div class="phone" id="phoneText">+1 682 816 5741</div>
+          </div>
+          <a class="callLink" id="telLink" href="tel:+16828165741">📞 Call Now</a>
+        </div>
+
+        <div class="tiny" id="orderSummary"></div>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-  // Fallback block if an image file is missing
-  function makeFallback(text){
-    const d = document.createElement("div");
-    d.className = "fallback";
-    d.textContent = text;
-    return d;
-  }
+  <script>
+    const PHONE_TEXT = "+1 682 816 5741";
+    const PHONE_TEL  = "+16828165741";
+    const ADDON_BORDER_PRICE = 5;
+    const TOPDOWN_PRICE = { "Texas Flag": 15, "American Flag": 20 };
+    const cart = [];
+    const money = (n) => "$" + (Math.round(n * 100) / 100).toFixed(0);
 
-  // Simple cart
-  const cart = [];
-  const cartList = document.getElementById("cartList");
-  const totalEl = document.getElementById("total");
-
-  function money(n){ return "$" + n.toFixed(0); }
-
-  function renderCart(){
-    cartList.innerHTML = "";
-    if(cart.length === 0){
-      const p = document.createElement("div");
-      p.className = "muted";
-      p.textContent = "Cart is empty — add a service to start.";
-      cartList.appendChild(p);
-    } else {
-      cart.forEach(item=>{
-        const row = document.createElement("div");
-        row.className = "cartItem";
-        row.innerHTML = `<span>${item.title}</span><span>${money(item.price)}</span>`;
-        cartList.appendChild(row);
-      });
+    function getGlobalAddons() {
+      const border = document.getElementById("addonBorder").checked;
+      const topdown = document.getElementById("addonTopdown").value;
+      return { border, topdown };
     }
-    const total = cart.reduce((s,x)=>s+x.price,0);
-    totalEl.textContent = money(total);
-  }
 
-  document.querySelectorAll(".card .addBtn").forEach(btn=>{
-    btn.addEventListener("click", () => {
-      const card = btn.closest(".card");
-      cart.push({
-        title: card.dataset.title,
-        price: Number(card.dataset.price)
+    function calcItemPrice(item) {
+      const base = item.base;
+      const doubleSided = item.doubleSided ? 20 : 0;
+      return (base + doubleSided) * item.qty;
+    }
+
+    function calcTotal() {
+      let total = cart.reduce((sum, it) => sum + calcItemPrice(it), 0);
+      const g = getGlobalAddons();
+      if (g.border) total += ADDON_BORDER_PRICE;
+      if (g.topdown) total += (TOPDOWN_PRICE[g.topdown] || 0);
+      return total;
+    }
+
+    function renderCart() {
+      const list = document.getElementById("cartList");
+      list.innerHTML = "";
+
+      if (cart.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "tiny";
+        empty.textContent = "Cart is empty — add a service to start.";
+        list.appendChild(empty);
+      } else {
+        cart.forEach((it, idx) => {
+          const row = document.createElement("div");
+          row.className = "cartItem";
+
+          const left = document.createElement("div");
+          const title = document.createElement("div");
+          title.style.fontWeight = "900";
+          title.textContent = `${it.title} ×${it.qty}`;
+
+          const meta = document.createElement("small");
+          const bits = [];
+          if (it.doubleSided) bits.push("Double-sided +$20");
+          if (it.sku === "topside" && it.topsideDesign) bits.push(`Design: ${it.topsideDesign}`);
+          meta.textContent = bits.join(" • ");
+
+          left.appendChild(title);
+          if (bits.length) left.appendChild(meta);
+
+          const right = document.createElement("div");
+          right.style.textAlign = "right";
+
+          const price = document.createElement("div");
+          price.style.fontWeight = "900";
+          price.textContent = money(calcItemPrice(it));
+
+          const remove = document.createElement("button");
+          remove.className = "btn";
+          remove.style.marginTop = "8px";
+          remove.type = "button";
+          remove.textContent = "Remove";
+          remove.onclick = () => {
+            cart.splice(idx, 1);
+            renderCart();
+          };
+
+          right.appendChild(price);
+          right.appendChild(remove);
+
+          row.appendChild(left);
+          row.appendChild(right);
+          list.appendChild(row);
+        });
+      }
+
+      document.getElementById("total").textContent = money(calcTotal());
+    }
+
+    document.querySelectorAll(".product").forEach(prod => {
+      const addBtn = prod.querySelector(".addBtn");
+      addBtn.addEventListener("click", () => {
+        const sku = prod.dataset.sku;
+        const title = prod.dataset.title;
+        const base = Number(prod.dataset.base);
+
+        const qty = Math.max(1, Number(prod.querySelector(".qtyInput").value || 1));
+        const doubleSided = !!prod.querySelector(".doubleSided")?.checked;
+
+        let topsideDesign = null;
+        if (sku === "topside") topsideDesign = prod.querySelector(".topsideDesign")?.value || "Texas Flag";
+
+        cart.push({ sku, title, base, qty, doubleSided, topsideDesign });
+        renderCart();
       });
+    });
+
+    document.getElementById("addonBorder").addEventListener("change", renderCart);
+    document.getElementById("addonTopdown").addEventListener("change", renderCart);
+
+    document.getElementById("clearCart").addEventListener("click", () => {
+      cart.length = 0;
       renderCart();
     });
-  });
 
-  // Carousels (for the 2-photo ones)
-  document.querySelectorAll(".card").forEach(card=>{
-    const carousel = card.querySelector(".carousel");
-    const track = card.querySelector(".track");
-    if(!carousel || !track) return;
+    const modal = document.getElementById("modal");
+    const closeModal = () => modal.classList.remove("open");
 
-    const slides = track.children.length;
-    const prev = card.querySelector(".prev");
-    const next = card.querySelector(".next");
-    const dots = card.querySelectorAll(".dot");
+    function buildOrderSummaryText() {
+      const g = getGlobalAddons();
+      const lines = [];
+      if (cart.length === 0) return "No items selected yet.";
 
-    if(slides <= 1 || !prev || !next) return;
+      lines.push("Order summary:");
+      cart.forEach(it => {
+        const parts = [`• ${it.title} x${it.qty}`];
+        if (it.doubleSided) parts.push("Double-sided");
+        if (it.sku === "topside" && it.topsideDesign) parts.push(`Design: ${it.topsideDesign}`);
+        lines.push(parts.join(" — "));
+      });
 
-    let i = 0;
-    function update(){
-      track.style.transform = `translateX(${-i * 100}%)`;
-      dots.forEach((d,idx)=>d.classList.toggle("active", idx===i));
-      prev.disabled = (i===0);
-      next.disabled = (i===slides-1);
+      const addonLines = [];
+      if (g.border) addonLines.push(`• Border add-on (+$${ADDON_BORDER_PRICE})`);
+      if (g.topdown) addonLines.push(`• Top-down art: ${g.topdown} (+$${TOPDOWN_PRICE[g.topdown]})`);
+      if (addonLines.length) {
+        lines.push("");
+        lines.push("Add-ons:");
+        lines.push(...addonLines);
+      }
+
+      lines.push("");
+      lines.push("Estimated total: " + money(calcTotal()));
+      return lines.join("\n");
     }
-    prev.addEventListener("click", ()=>{ if(i>0){ i--; update(); }});
-    next.addEventListener("click", ()=>{ if(i<slides-1){ i++; update(); }});
-    update();
-  });
 
-  // Modal
-  const modal = document.getElementById("modal");
-  const close = document.getElementById("close");
-  const summary = document.getElementById("summary");
-  document.getElementById("contactNow").addEventListener("click", ()=>{
-    if(cart.length === 0){
-      summary.textContent = "No items selected yet.";
-    } else {
-      summary.textContent = "Order summary:\n" + cart.map(x=>`• ${x.title} (${money(x.price)})`).join("\n");
+    document.getElementById("contactNow").addEventListener("click", () => {
+      document.getElementById("phoneText").textContent = PHONE_TEXT;
+      document.getElementById("telLink").setAttribute("href", "tel:" + PHONE_TEL);
+      document.getElementById("orderSummary").textContent = buildOrderSummaryText();
+      modal.classList.add("open");
+    });
+
+    document.getElementById("closeModal").addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+    window.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
+
+    function setupCarousel(carouselEl) {
+      const track = carouselEl.querySelector(".track");
+      const slides = Array.from(track.children);
+      const dots = Array.from(carouselEl.querySelectorAll(".dot"));
+      const prev = carouselEl.querySelector(".prev");
+      const next = carouselEl.querySelector(".next");
+
+      let index = 0;
+      const maxIndex = slides.length - 1;
+
+      function update() {
+        track.style.transform = `translateX(${-index * 100}%)`;
+        dots.forEach((d,i) => d.classList.toggle("active", i === index));
+        prev.disabled = index === 0;
+        next.disabled = index === maxIndex;
+      }
+
+      prev.addEventListener("click", () => { if (index > 0) { index--; update(); } });
+      next.addEventListener("click", () => { if (index < maxIndex) { index++; update(); } });
+
+      let startX = 0, currentX = 0, dragging = false;
+
+      carouselEl.addEventListener("pointerdown", (e) => {
+        dragging = true;
+        startX = e.clientX;
+        currentX = startX;
+        carouselEl.setPointerCapture(e.pointerId);
+      });
+
+      carouselEl.addEventListener("pointermove", (e) => {
+        if (!dragging) return;
+        currentX = e.clientX;
+      });
+
+      carouselEl.addEventListener("pointerup", (e) => {
+        if (!dragging) return;
+        dragging = false;
+        const dx = currentX - startX;
+        if (dx < -50 && index < maxIndex) index++;
+        else if (dx > 50 && index > 0) index--;
+        update();
+        try { carouselEl.releasePointerCapture(e.pointerId); } catch {}
+      });
+
+      update();
     }
-    modal.classList.add("open");
-  });
-  close.addEventListener("click", ()=> modal.classList.remove("open"));
-  modal.addEventListener("click", (e)=>{ if(e.target===modal) modal.classList.remove("open"); });
 
-  renderCart();
-</script>
+    document.querySelectorAll(".carousel").forEach(setupCarousel);
+    renderCart();
+  </script>
 </body>
 </html>
