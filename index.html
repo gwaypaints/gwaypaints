@@ -1,10 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gway Paints</title>
-<meta name="description" content="Custom curb address painting. Plain, Texas Flag, American Flag, Twin Stars. Add-ons available." />
 
 <style>
 :root{
@@ -20,12 +20,12 @@
 *{box-sizing:border-box}
 body{
   margin:0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  background: linear-gradient(180deg,#0b0c10,#111522);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  background:linear-gradient(180deg,#0b0c10,#111522);
   color:var(--text);
 }
 
-/* ===== HEADER ===== */
+/* HEADER */
 header{
   background:black;
   padding:20px;
@@ -33,7 +33,7 @@ header{
 }
 header h1{
   margin:0;
-  font-size:48px;
+  font-size:46px;
   font-family:cursive;
 }
 header p{
@@ -41,7 +41,7 @@ header p{
   color:var(--muted);
 }
 
-/* ===== LAYOUT ===== */
+/* LAYOUT */
 main{
   max-width:1100px;
   margin:20px auto 80px;
@@ -53,7 +53,7 @@ main{
   gap:16px;
 }
 
-/* ===== PRODUCT CARD ===== */
+/* PRODUCT */
 .product{
   background:var(--card);
   border-radius:var(--radius);
@@ -61,7 +61,7 @@ main{
   border:1px solid rgba(255,255,255,.1);
 }
 
-/* ===== CAROUSEL ===== */
+/* CAROUSEL */
 .carousel{
   position:relative;
   overflow:hidden;
@@ -103,7 +103,7 @@ main{
 .prev{left:8px}
 .next{right:8px}
 
-/* ===== BODY ===== */
+/* BODY */
 .body{
   padding:14px;
 }
@@ -119,17 +119,6 @@ main{
   margin:6px 0 10px;
 }
 
-label{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:#0f1220;
-  padding:8px 10px;
-  border-radius:12px;
-  font-size:14px;
-  margin-bottom:8px;
-}
-
 button{
   width:100%;
   padding:10px;
@@ -142,7 +131,7 @@ button{
 }
 button:hover{background:rgba(74,163,255,.3)}
 
-/* ===== CART ===== */
+/* CART */
 .cart{
   margin-top:30px;
   background:var(--card);
@@ -161,7 +150,7 @@ button:hover{background:rgba(74,163,255,.3)}
   background:rgba(61,220,132,.25);
 }
 
-/* ===== MODAL ===== */
+/* MODAL */
 .modal{
   position:fixed;
   inset:0;
@@ -193,7 +182,7 @@ button:hover{background:rgba(74,163,255,.3)}
 
 <!-- PLAIN -->
 <div class="product">
-  <div class="carousel" data-c="0">
+  <div class="carousel">
     <div class="track">
       <div class="slide"><img src="images/plain-1.webp"></div>
       <div class="slide"><img src="images/plain-2.webp"></div>
@@ -204,14 +193,13 @@ button:hover{background:rgba(74,163,255,.3)}
   <div class="body">
     <div class="title"><span>Plain</span><span class="price">$20</span></div>
     <div class="desc">Clean, readable curb numbers.</div>
-    <label>Double-sided +$20 <input type="checkbox" data-add="20"></label>
-    <button data-base="20">Add to Cart</button>
+    <button data-price="20">Add to Cart</button>
   </div>
 </div>
 
 <!-- TEXAS -->
 <div class="product">
-  <div class="carousel" data-c="1">
+  <div class="carousel">
     <div class="track">
       <div class="slide"><img src="images/texas-1.webp"></div>
       <div class="slide"><img src="images/texas-2.webp"></div>
@@ -222,43 +210,35 @@ button:hover{background:rgba(74,163,255,.3)}
   <div class="body">
     <div class="title"><span>Texas Flag</span><span class="price">$40</span></div>
     <div class="desc">Texas pride curb art.</div>
-    <label>Double-sided +$20 <input type="checkbox" data-add="20"></label>
-    <button data-base="40">Add to Cart</button>
+    <button data-price="40">Add to Cart</button>
   </div>
 </div>
 
 <!-- AMERICAN -->
 <div class="product">
-  <div class="carousel" data-c="2">
+  <div class="carousel">
     <div class="track">
       <div class="slide"><img src="images/american-1.jpg"></div>
-      <div class="slide"><div class="placeholder">Second photo coming soon</div></div>
     </div>
-    <button class="nav prev">‹</button>
-    <button class="nav next">›</button>
   </div>
   <div class="body">
     <div class="title"><span>American Flag</span><span class="price">$50</span></div>
     <div class="desc">Classic American flag design.</div>
-    <label>Double-sided +$20 <input type="checkbox" data-add="20"></label>
-    <button data-base="50">Add to Cart</button>
+    <button data-price="50">Add to Cart</button>
   </div>
 </div>
 
-<!-- TOPSIDE -->
+<!-- TWIN STARS -->
 <div class="product">
-  <div class="carousel" data-c="3">
+  <div class="carousel">
     <div class="track">
-      <div class="slide"><img src="images/american-1.jpg"></div>
-      <div class="slide"><div class="placeholder">Texas option coming soon</div></div>
+      <div class="slide"><img src="images/twinstars-1.jpg"></div>
     </div>
-    <button class="nav prev">‹</button>
-    <button class="nav next">›</button>
   </div>
   <div class="body">
-    <div class="title"><span>Topside Curb Art (1 side)</span><span class="price">$50</span></div>
-    <div class="desc">Top-down curb art — one side only.</div>
-    <button data-base="50">Add to Cart</button>
+    <div class="title"><span>Twin Stars</span><span class="price">$25</span></div>
+    <div class="desc">Twin star curb design — bold and clean.</div>
+    <button data-price="25">Add to Cart</button>
   </div>
 </div>
 
@@ -281,30 +261,33 @@ button:hover{background:rgba(74,163,255,.3)}
 </div>
 
 <script>
-let total=0;
-const cart=document.getElementById("cart");
-const totalEl=document.getElementById("total");
-const modal=document.getElementById("modal");
+let total = 0;
+const cart = document.getElementById("cart");
+const totalEl = document.getElementById("total");
+const modal = document.getElementById("modal");
 
-document.querySelectorAll("button[data-base]").forEach(btn=>{
-  btn.onclick=()=>{
-    let price=Number(btn.dataset.base);
-    const add=btn.parentElement.querySelector("input:checked");
-    if(add) price+=Number(add.dataset.add);
-    total+=price;
-    cart.innerHTML+=`<div>$${price}</div>`;
-    totalEl.textContent="$"+total;
-  }
+document.querySelectorAll("button[data-price]").forEach(btn=>{
+  btn.onclick = () => {
+    const price = Number(btn.dataset.price);
+    total += price;
+    cart.innerHTML += `<div>$${price}</div>`;
+    totalEl.textContent = "$" + total;
+  };
 });
 
-document.getElementById("contactBtn").onclick=()=>modal.classList.add("open");
+document.getElementById("contactBtn").onclick = () => {
+  modal.classList.add("open");
+};
 
 document.querySelectorAll(".carousel").forEach(c=>{
   let i=0;
   const track=c.querySelector(".track");
   const slides=track.children.length;
-  c.querySelector(".next").onclick=()=>{i=Math.min(i+1,slides-1);track.style.transform=`translateX(${-i*100}%)`;}
-  c.querySelector(".prev").onclick=()=>{i=Math.max(i-1,0);track.style.transform=`translateX(${-i*100}%)`;}
+  const next=c.querySelector(".next");
+  const prev=c.querySelector(".prev");
+  if(!next||!prev) return;
+  next.onclick=()=>{i=Math.min(i+1,slides-1);track.style.transform=`translateX(${-i*100}%)`;}
+  prev.onclick=()=>{i=Math.max(i-1,0);track.style.transform=`translateX(${-i*100}%)`;}
 });
 </script>
 
