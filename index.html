@@ -2,294 +2,470 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gway Paints</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gway Paints</title>
+  <meta name="description" content="Custom curb address paint — Plain, Texas Flag, American Flag, Twin Stars." />
 
-<style>
-:root{
-  --bg:#0b0c10;
-  --card:#141823;
-  --text:#e8eaf0;
-  --muted:#a7adbd;
-  --blue:#4aa3ff;
-  --green:#3ddc84;
-  --radius:18px;
-}
+  <style>
+    :root{
+      --bg1:#0b0c10;
+      --bg2:#111522;
+      --card:#141823;
+      --text:#e8eaf0;
+      --muted:#a7adbd;
+      --blue:#4aa3ff;
+      --green:#3ddc84;
+      --border:rgba(255,255,255,.10);
+      --radius:18px;
+    }
 
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-  background:linear-gradient(180deg,#0b0c10,#111522);
-  color:var(--text);
-}
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color:var(--text);
+      background: linear-gradient(180deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
 
-/* HEADER */
-header{
-  background:black;
-  padding:20px;
-  border-bottom:1px solid rgba(255,255,255,.1);
-}
-header h1{
-  margin:0;
-  font-size:46px;
-  font-family:cursive;
-}
-header p{
-  margin:6px 0 0;
-  color:var(--muted);
-}
+    header{
+      background:#000;
+      padding:20px 16px;
+      border-bottom:1px solid var(--border);
+    }
+    .wrap{ max-width:1100px; margin:0 auto; }
+    h1{
+      margin:0;
+      font-size:46px;
+      font-family: "Brush Script MT","Segoe Script","Snell Roundhand",cursive;
+      letter-spacing:.5px;
+    }
+    header p{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:14px;
+    }
 
-/* LAYOUT */
-main{
-  max-width:1100px;
-  margin:20px auto 80px;
-  padding:0 16px;
-}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:16px;
-}
+    main{ max-width:1100px; margin:20px auto 80px; padding:0 16px; }
 
-/* PRODUCT */
-.product{
-  background:var(--card);
-  border-radius:var(--radius);
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.1);
-}
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap:16px;
+    }
 
-/* CAROUSEL */
-.carousel{
-  position:relative;
-  overflow:hidden;
-}
-.track{
-  display:flex;
-  transition:transform .3s ease;
-}
-.slide{
-  min-width:100%;
-  aspect-ratio:16/9;
-}
-.slide img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-.placeholder{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  height:100%;
-  background:#1b2033;
-  color:var(--muted);
-  font-size:13px;
-}
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      overflow:hidden;
+    }
 
-.nav{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  background:rgba(0,0,0,.5);
-  border:none;
-  color:white;
-  width:34px;
-  height:34px;
-  cursor:pointer;
-}
-.prev{left:8px}
-.next{right:8px}
+    /* Carousel */
+    .carousel{
+      position:relative;
+      overflow:hidden;
+      background:#0c0f16;
+    }
+    .track{
+      display:flex;
+      transition: transform .28s ease;
+      will-change: transform;
+    }
+    .slide{
+      min-width:100%;
+      aspect-ratio: 16/9;
+      position:relative;
+    }
+    .slide img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .fallback{
+      width:100%;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:rgba(255,255,255,.75);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      font-size:13px;
+    }
 
-/* BODY */
-.body{
-  padding:14px;
-}
-.title{
-  display:flex;
-  justify-content:space-between;
-  font-weight:800;
-}
-.price{color:var(--blue)}
-.desc{
-  font-size:13px;
-  color:var(--muted);
-  margin:6px 0 10px;
-}
+    .nav{
+      position:absolute;
+      top:50%;
+      transform: translateY(-50%);
+      width:36px; height:36px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.45);
+      color:#fff;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .nav:hover{ background: rgba(0,0,0,.60); }
+    .prev{ left:10px; }
+    .next{ right:10px; }
+    .nav[disabled]{ opacity:.35; cursor:not-allowed; }
 
-button{
-  width:100%;
-  padding:10px;
-  border:none;
-  border-radius:14px;
-  background:rgba(74,163,255,.2);
-  color:white;
-  font-weight:800;
-  cursor:pointer;
-}
-button:hover{background:rgba(74,163,255,.3)}
+    .dots{
+      position:absolute;
+      left:0; right:0; bottom:10px;
+      display:flex;
+      justify-content:center;
+      gap:6px;
+      pointer-events:none;
+    }
+    .dot{
+      width:7px; height:7px;
+      border-radius:99px;
+      background: rgba(255,255,255,.35);
+    }
+    .dot.active{ background: rgba(255,255,255,.9); }
 
-/* CART */
-.cart{
-  margin-top:30px;
-  background:var(--card);
-  padding:16px;
-  border-radius:var(--radius);
-}
-.cart h2{margin-top:0}
-.total{
-  display:flex;
-  justify-content:space-between;
-  font-weight:900;
-  margin-top:10px;
-}
-.contact{
-  margin-top:14px;
-  background:rgba(61,220,132,.25);
-}
+    .body{ padding:14px; }
+    .title{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      font-weight:900;
+      font-size:16px;
+    }
+    .price{ color:var(--blue); white-space:nowrap; }
+    .desc{
+      margin:8px 0 12px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.35;
+    }
 
-/* MODAL */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.7);
-  display:none;
-  align-items:center;
-  justify-content:center;
-}
-.modal.open{display:flex}
-.modalBox{
-  background:#141823;
-  padding:20px;
-  border-radius:18px;
-  max-width:400px;
-  width:100%;
-}
-</style>
+    .btn{
+      width:100%;
+      padding:11px 12px;
+      border:none;
+      border-radius:14px;
+      background: rgba(74,163,255,.22);
+      color:#fff;
+      font-weight:900;
+      cursor:pointer;
+      border:1px solid rgba(74,163,255,.25);
+    }
+    .btn:hover{ background: rgba(74,163,255,.28); }
+    .btnGreen{
+      background: rgba(61,220,132,.18);
+      border:1px solid rgba(61,220,132,.25);
+    }
+    .btnGreen:hover{ background: rgba(61,220,132,.24); }
+
+    .cart{
+      margin-top:22px;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:16px;
+    }
+    .cart h2{ margin:0 0 10px; font-size:16px; }
+    .cartList{ display:flex; flex-direction:column; gap:8px; }
+    .cartItem{
+      display:flex;
+      justify-content:space-between;
+      background: rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:14px;
+      padding:10px 12px;
+      font-weight:800;
+    }
+    .totalRow{
+      display:flex;
+      justify-content:space-between;
+      margin-top:12px;
+      padding-top:12px;
+      border-top:1px solid rgba(255,255,255,.10);
+      font-weight:900;
+    }
+    .totalRow span:last-child{ color:var(--green); }
+
+    /* Modal */
+    .modal{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.65);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:50;
+    }
+    .modal.open{ display:flex; }
+    .modalBox{
+      width:min(520px, 100%);
+      background: rgba(15,18,26,.95);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 20px;
+      overflow:hidden;
+    }
+    .modalHead{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:14px 16px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .x{
+      width:38px; height:38px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.10);
+      color:#fff;
+      cursor:pointer;
+    }
+    .modalBody{ padding:14px 16px 16px; }
+    .muted{ color:var(--muted); font-size:13px; line-height:1.35; }
+    .callRow{
+      margin-top:12px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      align-items:center;
+      padding:12px;
+      border-radius:16px;
+      background: rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .phone{ font-weight:1000; font-size:16px; }
+    a.callLink{
+      text-decoration:none;
+      padding:10px 12px;
+      border-radius:14px;
+      font-weight:900;
+      color:#fff;
+      background: rgba(61,220,132,.18);
+      border:1px solid rgba(61,220,132,.28);
+    }
+  </style>
 </head>
 
 <body>
-
 <header>
-  <h1>Gway Paints</h1>
-  <p>Custom curb address paint • Clean • Professional</p>
+  <div class="wrap">
+    <h1>Gway Paints</h1>
+    <p>Custom curb address paint • Clean • Professional</p>
+  </div>
 </header>
 
 <main>
-<div class="grid">
+  <div class="grid">
 
-<!-- PLAIN -->
-<div class="product">
-  <div class="carousel">
-    <div class="track">
-      <div class="slide"><img src="images/plain-1.webp"></div>
-      <div class="slide"><img src="images/plain-2.webp"></div>
+    <!-- Plain -->
+    <section class="card" data-title="Plain" data-price="20">
+      <div class="carousel">
+        <div class="track">
+          <div class="slide">
+            <img src="images/plain-1.webp" alt="Plain example 1"
+                 onerror="this.replaceWith(makeFallback('Plain photo missing'));">
+          </div>
+          <div class="slide">
+            <img src="images/plain-2.webp" alt="Plain example 2"
+                 onerror="this.replaceWith(makeFallback('Plain photo missing'));">
+          </div>
+        </div>
+        <button class="nav prev" type="button">‹</button>
+        <button class="nav next" type="button">›</button>
+        <div class="dots"><div class="dot active"></div><div class="dot"></div></div>
+      </div>
+      <div class="body">
+        <div class="title"><span>Plain</span><span class="price">$20</span></div>
+        <div class="desc">Clean, readable curb numbers.</div>
+        <button class="btn addBtn" type="button">Add to Cart</button>
+      </div>
+    </section>
+
+    <!-- Texas -->
+    <section class="card" data-title="Texas Flag" data-price="40">
+      <div class="carousel">
+        <div class="track">
+          <div class="slide">
+            <img src="images/texas-1.webp" alt="Texas flag example 1"
+                 onerror="this.replaceWith(makeFallback('Texas photo missing'));">
+          </div>
+          <div class="slide">
+            <img src="images/texas-2.webp" alt="Texas flag example 2"
+                 onerror="this.replaceWith(makeFallback('Texas photo missing'));">
+          </div>
+        </div>
+        <button class="nav prev" type="button">‹</button>
+        <button class="nav next" type="button">›</button>
+        <div class="dots"><div class="dot active"></div><div class="dot"></div></div>
+      </div>
+      <div class="body">
+        <div class="title"><span>Texas Flag</span><span class="price">$40</span></div>
+        <div class="desc">Texas pride curb art.</div>
+        <button class="btn addBtn" type="button">Add to Cart</button>
+      </div>
+    </section>
+
+    <!-- American -->
+    <section class="card" data-title="American Flag" data-price="50">
+      <div class="carousel">
+        <div class="track">
+          <div class="slide">
+            <img src="images/american-1.jpg" alt="American flag example"
+                 onerror="this.replaceWith(makeFallback('American photo missing'));">
+          </div>
+        </div>
+      </div>
+      <div class="body">
+        <div class="title"><span>American Flag</span><span class="price">$50</span></div>
+        <div class="desc">Classic American flag design.</div>
+        <button class="btn addBtn" type="button">Add to Cart</button>
+      </div>
+    </section>
+
+    <!-- Twin Stars -->
+    <section class="card" data-title="Twin Stars" data-price="25">
+      <div class="carousel">
+        <div class="track">
+          <div class="slide">
+            <img src="images/twinstars-1.jpg" alt="Twin Stars example"
+                 onerror="this.replaceWith(makeFallback('Twin Stars photo missing'));">
+          </div>
+        </div>
+      </div>
+      <div class="body">
+        <div class="title"><span>Twin Stars</span><span class="price">$25</span></div>
+        <div class="desc">Twin star curb design — bold and clean.</div>
+        <button class="btn addBtn" type="button">Add to Cart</button>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Cart -->
+  <section class="cart">
+    <h2>Cart</h2>
+    <div class="cartList" id="cartList"></div>
+    <div class="totalRow">
+      <span>Total</span>
+      <span id="total">$0</span>
     </div>
-    <button class="nav prev">‹</button>
-    <button class="nav next">›</button>
-  </div>
-  <div class="body">
-    <div class="title"><span>Plain</span><span class="price">$20</span></div>
-    <div class="desc">Clean, readable curb numbers.</div>
-    <button data-price="20">Add to Cart</button>
-  </div>
-</div>
-
-<!-- TEXAS -->
-<div class="product">
-  <div class="carousel">
-    <div class="track">
-      <div class="slide"><img src="images/texas-1.webp"></div>
-      <div class="slide"><img src="images/texas-2.webp"></div>
-    </div>
-    <button class="nav prev">‹</button>
-    <button class="nav next">›</button>
-  </div>
-  <div class="body">
-    <div class="title"><span>Texas Flag</span><span class="price">$40</span></div>
-    <div class="desc">Texas pride curb art.</div>
-    <button data-price="40">Add to Cart</button>
-  </div>
-</div>
-
-<!-- AMERICAN -->
-<div class="product">
-  <div class="carousel">
-    <div class="track">
-      <div class="slide"><img src="images/american-1.jpg"></div>
-    </div>
-  </div>
-  <div class="body">
-    <div class="title"><span>American Flag</span><span class="price">$50</span></div>
-    <div class="desc">Classic American flag design.</div>
-    <button data-price="50">Add to Cart</button>
-  </div>
-</div>
-
-<!-- TWIN STARS -->
-<div class="product">
-  <div class="carousel">
-    <div class="track">
-      <div class="slide"><img src="images/twinstars-1.jpg"></div>
-    </div>
-  </div>
-  <div class="body">
-    <div class="title"><span>Twin Stars</span><span class="price">$25</span></div>
-    <div class="desc">Twin star curb design — bold and clean.</div>
-    <button data-price="25">Add to Cart</button>
-  </div>
-</div>
-
-</div>
-
-<div class="cart">
-  <h2>Cart</h2>
-  <div id="cart"></div>
-  <div class="total"><span>Total</span><span id="total">$0</span></div>
-  <button class="contact" id="contactBtn">Contact Now</button>
-</div>
+    <button class="btn btnGreen" id="contactNow" type="button">Contact Now</button>
+  </section>
 </main>
 
+<!-- Contact Modal -->
 <div class="modal" id="modal">
   <div class="modalBox">
-    <h3>Contact Gway Paints</h3>
-    <p>📞 <strong>+1 682 816 5741</strong></p>
-    <button onclick="modal.classList.remove('open')">Close</button>
+    <div class="modalHead">
+      <strong>Contact Gway Paints</strong>
+      <button class="x" type="button" id="close">✕</button>
+    </div>
+    <div class="modalBody">
+      <div class="muted">Call/text to place your order. Tell me your address and which design you want.</div>
+      <div class="callRow">
+        <div>
+          <div class="muted" style="margin-bottom:4px;">Call / Text</div>
+          <div class="phone">+1 682 816 5741</div>
+        </div>
+        <a class="callLink" href="tel:+16828165741">📞 Call Now</a>
+      </div>
+      <pre class="muted" id="summary" style="white-space:pre-wrap;margin-top:12px;"></pre>
+    </div>
   </div>
 </div>
 
 <script>
-let total = 0;
-const cart = document.getElementById("cart");
-const totalEl = document.getElementById("total");
-const modal = document.getElementById("modal");
+  // Fallback block if an image file is missing
+  function makeFallback(text){
+    const d = document.createElement("div");
+    d.className = "fallback";
+    d.textContent = text;
+    return d;
+  }
 
-document.querySelectorAll("button[data-price]").forEach(btn=>{
-  btn.onclick = () => {
-    const price = Number(btn.dataset.price);
-    total += price;
-    cart.innerHTML += `<div>$${price}</div>`;
-    totalEl.textContent = "$" + total;
-  };
-});
+  // Simple cart
+  const cart = [];
+  const cartList = document.getElementById("cartList");
+  const totalEl = document.getElementById("total");
 
-document.getElementById("contactBtn").onclick = () => {
-  modal.classList.add("open");
-};
+  function money(n){ return "$" + n.toFixed(0); }
 
-document.querySelectorAll(".carousel").forEach(c=>{
-  let i=0;
-  const track=c.querySelector(".track");
-  const slides=track.children.length;
-  const next=c.querySelector(".next");
-  const prev=c.querySelector(".prev");
-  if(!next||!prev) return;
-  next.onclick=()=>{i=Math.min(i+1,slides-1);track.style.transform=`translateX(${-i*100}%)`;}
-  prev.onclick=()=>{i=Math.max(i-1,0);track.style.transform=`translateX(${-i*100}%)`;}
-});
+  function renderCart(){
+    cartList.innerHTML = "";
+    if(cart.length === 0){
+      const p = document.createElement("div");
+      p.className = "muted";
+      p.textContent = "Cart is empty — add a service to start.";
+      cartList.appendChild(p);
+    } else {
+      cart.forEach(item=>{
+        const row = document.createElement("div");
+        row.className = "cartItem";
+        row.innerHTML = `<span>${item.title}</span><span>${money(item.price)}</span>`;
+        cartList.appendChild(row);
+      });
+    }
+    const total = cart.reduce((s,x)=>s+x.price,0);
+    totalEl.textContent = money(total);
+  }
+
+  document.querySelectorAll(".card .addBtn").forEach(btn=>{
+    btn.addEventListener("click", () => {
+      const card = btn.closest(".card");
+      cart.push({
+        title: card.dataset.title,
+        price: Number(card.dataset.price)
+      });
+      renderCart();
+    });
+  });
+
+  // Carousels (for the 2-photo ones)
+  document.querySelectorAll(".card").forEach(card=>{
+    const carousel = card.querySelector(".carousel");
+    const track = card.querySelector(".track");
+    if(!carousel || !track) return;
+
+    const slides = track.children.length;
+    const prev = card.querySelector(".prev");
+    const next = card.querySelector(".next");
+    const dots = card.querySelectorAll(".dot");
+
+    if(slides <= 1 || !prev || !next) return;
+
+    let i = 0;
+    function update(){
+      track.style.transform = `translateX(${-i * 100}%)`;
+      dots.forEach((d,idx)=>d.classList.toggle("active", idx===i));
+      prev.disabled = (i===0);
+      next.disabled = (i===slides-1);
+    }
+    prev.addEventListener("click", ()=>{ if(i>0){ i--; update(); }});
+    next.addEventListener("click", ()=>{ if(i<slides-1){ i++; update(); }});
+    update();
+  });
+
+  // Modal
+  const modal = document.getElementById("modal");
+  const close = document.getElementById("close");
+  const summary = document.getElementById("summary");
+  document.getElementById("contactNow").addEventListener("click", ()=>{
+    if(cart.length === 0){
+      summary.textContent = "No items selected yet.";
+    } else {
+      summary.textContent = "Order summary:\n" + cart.map(x=>`• ${x.title} (${money(x.price)})`).join("\n");
+    }
+    modal.classList.add("open");
+  });
+  close.addEventListener("click", ()=> modal.classList.remove("open"));
+  modal.addEventListener("click", (e)=>{ if(e.target===modal) modal.classList.remove("open"); });
+
+  renderCart();
 </script>
-
 </body>
 </html>
