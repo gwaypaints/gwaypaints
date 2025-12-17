@@ -1,222 +1,949 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Gway Paints</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Gway Paints</title>
+  <meta name="description" content="Gway Paints curb art — choose a design and contact to book." />
 
-<style>
-:root{
---bg1:#0b0f1a;--bg2:#0a0b10;--panel:rgba(255,255,255,.06);
---panel2:rgba(255,255,255,.04);--stroke:rgba(255,255,255,.10);
---text:#f2f2f7;--muted:#b9b9c7;--blue:#4aa3ff;
-}
-*{box-sizing:border-box}
-body{
-margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto;
-color:var(--text);
-background:linear-gradient(180deg,var(--bg1),var(--bg2));
-}
-header{background:#000;padding:20px}
-h1{margin:0;font-family:cursive;font-size:42px}
-main{max-width:1200px;margin:auto;padding:16px;display:grid;grid-template-columns:2fr 1fr;gap:16px}
-@media(max-width:900px){main{grid-template-columns:1fr}}
+  <style>
+    :root{
+      --bg1:#0b0f1a;
+      --bg2:#0a0b10;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.04);
+      --stroke: rgba(255,255,255,.10);
+      --text:#f2f2f7;
+      --muted:#b9b9c7;
+      --blue:#4aa3ff;
+      --shadow: 0 18px 50px rgba(0,0,0,.45);
+      --r2: 26px;
+      --gap: 14px;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background: radial-gradient(900px 600px at 15% 0%, rgba(74,163,255,.10), transparent 60%),
+                  radial-gradient(900px 600px at 85% 10%, rgba(255,74,95,.08), transparent 55%),
+                  linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 100%);
+      overflow-x:hidden;
+    }
 
-.panel{background:var(--panel);border:1px solid var(--stroke);border-radius:20px;padding:14px}
-.card{background:var(--panel2);border:1px solid var(--stroke);border-radius:16px;overflow:hidden}
+    header{
+      position:sticky; top:0; z-index:25;
+      backdrop-filter: blur(10px);
+      background: rgba(0,0,0,.55);
+      border-bottom:1px solid rgba(255,255,255,.12);
+    }
+    .banner{
+      position:relative;
+      overflow:hidden;
+      padding:22px 16px;
+      background:#000;
+    }
+    .banner::before{
+      content:"";
+      position:absolute; inset:-60px;
+      background:
+        radial-gradient(520px 220px at 18% 45%, rgba(74,163,255,.30), transparent 65%),
+        radial-gradient(600px 240px at 45% 70%, rgba(255,74,95,.24), transparent 70%),
+        radial-gradient(560px 240px at 72% 40%, rgba(53,208,127,.20), transparent 68%),
+        radial-gradient(680px 280px at 88% 70%, rgba(255,255,255,.08), transparent 72%);
+      opacity:.95;
+      mix-blend-mode: screen;
+      transform: rotate(-1deg);
+      z-index:0;
+    }
+    .banner::after{
+      content:"";
+      position:absolute; inset:0;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.22) 1px, transparent 1.6px),
+        radial-gradient(circle, rgba(255,255,255,.14) 1px, transparent 2.2px),
+        radial-gradient(circle, rgba(255,255,255,.10) 1px, transparent 2.8px);
+      background-size: 14px 14px, 22px 22px, 34px 34px;
+      background-position: 0 0, 7px 11px, 13px 5px;
+      opacity:.22;
+      mix-blend-mode: overlay;
+      z-index:0;
+      pointer-events:none;
+    }
+    .wrap{
+      max-width:1200px;
+      margin:0 auto;
+      display:flex;
+      gap:14px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      position:relative;
+      z-index:1;
+    }
+    .brand h1{
+      margin:0;
+      font-family: "Brush Script MT","Segoe Script","Comic Sans MS",cursive;
+      font-size: clamp(30px, 4vw, 48px);
+      line-height:1.05;
+      text-shadow: 0 10px 26px rgba(0,0,0,.75);
+    }
+    .brand p{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size: 13px;
+    }
+    .top-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    .btn{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      padding:10px 14px;
+      border-radius:999px;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      box-shadow: 0 10px 24px rgba(0,0,0,.25);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select:none;
+      white-space:nowrap;
+      font-weight:800;
+      font-size: 14px;
+    }
+    .btn.primary{
+      background: rgba(74,163,255,.14);
+      border-color: rgba(74,163,255,.35);
+      color:#eaf4ff;
+      justify-content:center;
+    }
 
-.picCarousel{position:relative;aspect-ratio:16/10;overflow:hidden}
-.picTrack{display:flex;height:100%;transition:.3s}
-.pic{flex:0 0 100%;position:relative}
-.pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.picDots{position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:center;gap:6px}
-.picDot{width:8px;height:8px;border-radius:50%;background:#666;border:none}
-.picDot.active{background:var(--blue)}
+    main{
+      max-width:1200px;
+      margin:18px auto 64px;
+      padding: 0 16px;
+      display:grid;
+      grid-template-columns: 1.7fr 1fr;
+      gap: 16px;
+      align-items:start;
+    }
+    @media (max-width: 980px){
+      main{ grid-template-columns: 1fr; }
+    }
 
-.content{padding:12px}
-.row{display:flex;justify-content:space-between;align-items:center}
-.price{color:var(--blue);font-weight:800}
-button{padding:10px;border:none;border-radius:10px;font-weight:800;cursor:pointer}
-.addbtn{width:100%;margin-top:10px;background:var(--blue);color:#000}
+    .panel{
+      background: var(--panel);
+      border:1px solid var(--stroke);
+      border-radius: var(--r2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      backdrop-filter: blur(10px);
+    }
+    .hd{
+      padding:16px 16px 12px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), transparent);
+    }
+    .hd h2{ margin:0; font-size:18px; letter-spacing:.2px; }
+    .hd p{ margin:6px 0 0; color:var(--muted); font-size:13px; line-height:1.35; }
+    .bd{ padding:14px 16px 16px; }
 
-.cartitem{border-bottom:1px solid var(--stroke);padding:8px 0}
-.total{font-weight:900;color:var(--blue)}
+    /* ===== Main services carousel ===== */
+    .carousel{ position:relative; padding-bottom: 12px; }
+    .viewport{ overflow:hidden; border-radius: 18px; }
+    .track{
+      display:flex;
+      gap: var(--gap);
+      will-change: transform;
+      transition: transform .28s ease;
+      padding: 2px;
+      touch-action: pan-y;
+    }
+    .slide{
+      flex: 0 0 calc((100% - var(--gap)) / 2);
+      min-width: calc((100% - var(--gap)) / 2);
+    }
+    @media (max-width: 680px){
+      .slide{ flex-basis: 100%; min-width:100%; }
+    }
 
-select,input,textarea{
-width:100%;padding:10px;border-radius:10px;
-border:1px solid var(--stroke);background:#000;color:#fff
-}
-</style>
+    .card{
+      background: var(--panel2);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height:100%;
+    }
+
+    /* ===== Picture carousel inside each card ===== */
+    .picCarousel{
+      position:relative;
+      aspect-ratio: 16/10;
+      overflow:hidden;
+      user-select:none;
+      touch-action: pan-y;
+      background: rgba(0,0,0,.15);
+    }
+    .picTrack{
+      height:100%;
+      display:flex;
+      transition: transform .28s ease;
+      will-change: transform;
+    }
+    .pic{
+      flex: 0 0 100%;
+      height:100%;
+      position:relative;
+      display:flex;
+      align-items:flex-end;
+      padding:12px;
+      background:
+        radial-gradient(600px 220px at 20% 20%, rgba(74,163,255,.18), transparent 55%),
+        linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    }
+    .realpic{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .tag{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.45);
+      font-size:12px;
+      color:var(--muted);
+      backdrop-filter: blur(6px);
+      position:relative;
+      z-index:2;
+    }
+    .tag b{ color:var(--text); }
+
+    .picDots{
+      position:absolute;
+      left:0; right:0; bottom:8px;
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      z-index:3;
+      pointer-events:auto;
+    }
+    .picDot{
+      width:7px; height:7px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.10);
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .picDot.active{
+      background: rgba(74,163,255,.55);
+      border-color: rgba(74,163,255,.75);
+      transform: scale(1.15);
+    }
+
+    .content{
+      padding:12px 12px 14px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      height:100%;
+    }
+    .row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .name{ margin:0; font-weight:900; letter-spacing:.2px; font-size:16px; }
+    .desc{ margin:0; color:var(--muted); font-size:13px; line-height:1.35; }
+    .price{ font-weight:950; color:var(--blue); font-size:16px; }
+
+    .select,.input,textarea{
+      width:100%;
+      padding:10px 10px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.30);
+      color:var(--text);
+      outline:none;
+    }
+    textarea{ min-height: 90px; resize:vertical; }
+
+    .addbtn{
+      width:100%;
+      border:none;
+      border-radius:14px;
+      padding:11px 12px;
+      cursor:pointer;
+      font-weight:900;
+      color:#071018;
+      background: linear-gradient(135deg, rgba(74,163,255,.95), rgba(120,220,255,.75));
+      box-shadow: 0 18px 40px rgba(0,0,0,.35);
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .addbtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+
+    .dots{
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      padding: 10px 0 0;
+      user-select:none;
+    }
+    .dot{
+      width:7px; height:7px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.10);
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .dot.active{
+      background: rgba(74,163,255,.55);
+      border-color: rgba(74,163,255,.75);
+      transform: scale(1.15);
+    }
+
+    .addons{ display:grid; gap:10px; }
+    .addon{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding:12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+    }
+    .icon{
+      width:38px; height:38px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      display:flex; align-items:center; justify-content:center;
+      overflow:hidden;
+      flex: 0 0 auto;
+    }
+    .icon img{ width:100%; height:100%; object-fit:cover; }
+
+    .cart{ position:sticky; top:92px; }
+    .cartlist{ display:grid; gap:10px; }
+    .cartitem{
+      padding:12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      display:grid;
+      gap:8px;
+    }
+    .cartitem .top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .cartitem .title{ font-weight:900; font-size:14px; line-height:1.25; }
+    .cartitem .meta{ color:var(--muted); font-size:12px; line-height:1.35; margin-top:4px; }
+    .x{
+      border:none;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      color:var(--text);
+      border-radius:10px;
+      padding:6px 9px;
+      cursor:pointer;
+      font-weight:900;
+    }
+    .totals{
+      margin-top:12px;
+      padding-top:12px;
+      border-top:1px solid rgba(255,255,255,.10);
+      display:grid;
+      gap:6px;
+      font-size:14px;
+    }
+    .totals .line{ display:flex; justify-content:space-between; gap:10px; }
+    .totals .grand{ font-size:16px; font-weight:950; }
+    .empty{ color:var(--muted); font-size:13px; padding: 6px 2px 2px; }
+
+    .coming-soon{
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    .coming-soon b{ color: var(--text); }
+
+    .footnote{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.4;
+      border-top:1px dashed rgba(255,255,255,.14);
+      padding-top:10px;
+    }
+  </style>
 </head>
 
 <body>
+  <header>
+    <div class="banner">
+      <div class="wrap">
+        <div class="brand">
+          <h1>Gway Paints</h1>
+          <p>Curb art • Pick a service • Add-ons optional</p>
+        </div>
 
-<header>
-<h1>Gway Paints</h1>
-</header>
+        <!-- ONLY total up top -->
+        <div class="top-actions">
+          <span class="btn" style="pointer-events:none;">Total: <b id="topTotal" style="color:var(--blue)">$0</b></span>
+        </div>
+      </div>
+    </div>
+  </header>
 
-<main>
+  <main>
+    <!-- LEFT -->
+    <section class="panel">
+      <div class="hd">
+        <h2>Choose your curb art</h2>
+        <p>Swipe through services, and swipe each picture for <b>example looks</b>.</p>
+      </div>
 
-<!-- LEFT -->
-<div class="panel">
+      <div class="bd">
+        <div class="carousel" id="serviceCarousel">
+          <div class="viewport" id="serviceViewport">
+            <div class="track" id="track">
 
-<!-- PLAIN -->
-<div class="card">
-<div class="picCarousel">
-<div class="picTrack">
-<div class="pic"><img src="images/plain1.jpg"></div>
-<div class="pic"><img src="images/plain1.jpg"></div>
-</div>
-<div class="picDots"></div>
-</div>
-<div class="content">
-<div class="row"><b>Plain</b><span class="price">$20</span></div>
-<button class="addbtn" onclick="add('Plain',20)">Add to cart</button>
-</div>
-</div>
+              <!-- Plain -->
+              <div class="slide">
+                <article class="card" data-id="plain" data-name="Plain" data-price="20">
+                  <div class="picCarousel" data-pic-carousel>
+                    <div class="picTrack">
+                      <div class="pic">
+                        <img class="realpic" src="images/plain1.jpg" alt="Plain curb numbers">
+                        <span class="tag"><b>Plain</b> • Example 1</span>
+                      </div>
+                      <div class="pic">
+                        <img class="realpic" src="images/plain1.jpg" alt="Plain curb numbers">
+                        <span class="tag"><b>Plain</b> • Example 2</span>
+                      </div>
+                    </div>
+                    <div class="picDots"></div>
+                  </div>
+                  <div class="content">
+                    <div class="row"><p class="name">Plain</p><span class="price">$20</span></div>
+                    <p class="desc">Clean numbers + outline. Great if you want it simple and readable.</p>
+                    <button class="addbtn">Add to cart</button>
+                  </div>
+                </article>
+              </div>
 
-<br>
+              <!-- Texas Flag -->
+              <div class="slide">
+                <article class="card" data-id="txflag" data-name="Texas Flag" data-price="40">
+                  <div class="picCarousel" data-pic-carousel>
+                    <div class="picTrack">
+                      <div class="pic">
+                        <img class="realpic" src="images/texas1.jpg" alt="Texas flag curb art">
+                        <span class="tag"><b>Texas Flag</b> • Example 1</span>
+                      </div>
+                      <div class="pic">
+                        <img class="realpic" src="images/texas2.jpg" alt="Texas flag curb art">
+                        <span class="tag"><b>Texas Flag</b> • Example 2</span>
+                      </div>
+                    </div>
+                    <div class="picDots"></div>
+                  </div>
+                  <div class="content">
+                    <div class="row"><p class="name">Texas Flag</p><span class="price">$40</span></div>
+                    <p class="desc">Texas flag theme with strong contrast—stands out from the street.</p>
+                    <button class="addbtn">Add to cart</button>
+                  </div>
+                </article>
+              </div>
 
-<!-- TEXAS -->
-<div class="card">
-<div class="picCarousel">
-<div class="picTrack">
-<div class="pic"><img src="images/texas1.jpg"></div>
-<div class="pic"><img src="images/texas2.jpg"></div>
-</div>
-<div class="picDots"></div>
-</div>
-<div class="content">
-<div class="row"><b>Texas Flag</b><span class="price">$40</span></div>
-<button class="addbtn" onclick="add('Texas Flag',40)">Add to cart</button>
-</div>
-</div>
+              <!-- Twin Stars -->
+              <div class="slide">
+                <article class="card" data-id="twinstars" data-name="Twin Stars" data-price="25">
+                  <div class="picCarousel" data-pic-carousel>
+                    <div class="picTrack">
+                      <div class="pic">
+                        <img class="realpic" src="images/twinstars1.jpg" alt="Twin stars curb art">
+                        <span class="tag"><b>Twin Stars</b> • Example 1</span>
+                      </div>
+                      <div class="pic">
+                        <img class="realpic" src="images/twinstars1.jpg" alt="Twin stars curb art">
+                        <span class="tag"><b>Twin Stars</b> • Example 2</span>
+                      </div>
+                    </div>
+                    <div class="picDots"></div>
+                  </div>
+                  <div class="content">
+                    <div class="row"><p class="name">Twin Stars</p><span class="price">$25</span></div>
+                    <p class="desc">Twin stars style with a bold look that still keeps numbers readable.</p>
+                    <button class="addbtn">Add to cart</button>
+                  </div>
+                </article>
+              </div>
 
-<br>
+              <!-- American Flag -->
+              <div class="slide">
+                <article class="card" data-id="usflag" data-name="American Flag" data-price="50">
+                  <div class="picCarousel" data-pic-carousel>
+                    <div class="picTrack">
+                      <div class="pic">
+                        <img class="realpic" src="images/american1.jpg" alt="American flag curb art">
+                        <span class="tag"><b>American Flag</b> • Example 1</span>
+                      </div>
+                      <div class="pic">
+                        <img class="realpic" src="images/american1.jpg" alt="American flag curb art">
+                        <span class="tag"><b>American Flag</b> • Example 2</span>
+                      </div>
+                    </div>
+                    <div class="picDots"></div>
+                  </div>
+                  <div class="content">
+                    <div class="row"><p class="name">American Flag</p><span class="price">$50</span></div>
+                    <p class="desc">American flag theme with bold presence and clean readability.</p>
+                    <button class="addbtn">Add to cart</button>
+                  </div>
+                </article>
+              </div>
 
-<!-- TWIN STARS -->
-<div class="card">
-<div class="picCarousel">
-<div class="picTrack">
-<div class="pic"><img src="images/twinstars1.jpg"></div>
-<div class="pic"><img src="images/twinstars1.jpg"></div>
-</div>
-<div class="picDots"></div>
-</div>
-<div class="content">
-<div class="row"><b>Twin Stars</b><span class="price">$25</span></div>
-<button class="addbtn" onclick="add('Twin Stars',25)">Add to cart</button>
-</div>
-</div>
+              <!-- Topside Curb Art -->
+              <div class="slide">
+                <article class="card" data-id="topside" data-name="Topside Curb Art" data-price="50">
+                  <div class="picCarousel" data-pic-carousel>
+                    <div class="picTrack">
+                      <div class="pic">
+                        <img class="realpic" src="images/american1.jpg" alt="Topside curb art example">
+                        <span class="tag"><b>Topside</b> • Example 1</span>
+                      </div>
+                      <div class="pic">
+                        <img class="realpic" src="images/american1.jpg" alt="Topside curb art example">
+                        <span class="tag"><b>Topside</b> • Example 2</span>
+                      </div>
+                    </div>
+                    <div class="picDots"></div>
+                  </div>
+                  <div class="content">
+                    <div class="row"><p class="name">Topside Curb Art</p><span class="price">$50</span></div>
+                    <p class="desc">
+                      <b>Disclaimer:</b> This option is <b>one side only</b>.
+                      Best if you have a <b>straight curb without obstruction on top</b>.
+                      Choose a style:
+                    </p>
+                    <select class="select variant" aria-label="Topside style">
+                      <option value="Texas Flag">Texas Flag</option>
+                      <option value="American Flag">American Flag</option>
+                    </select>
+                    <button class="addbtn">Add to cart</button>
+                  </div>
+                </article>
+              </div>
 
-<br>
+            </div>
+          </div>
 
-<!-- AMERICAN -->
-<div class="card">
-<div class="picCarousel">
-<div class="picTrack">
-<div class="pic"><img src="images/american1.jpg"></div>
-<div class="pic"><img src="images/american1.jpg"></div>
-</div>
-<div class="picDots"></div>
-</div>
-<div class="content">
-<div class="row"><b>American Flag</b><span class="price">$50</span></div>
-<button class="addbtn" onclick="add('American Flag',50)">Add to cart</button>
-</div>
-</div>
+          <div class="dots" id="dots" aria-label="Carousel page indicators"></div>
+        </div>
 
-<br>
+        <div style="height:14px"></div>
 
-<!-- TOPSIDE -->
-<div class="card">
-<div class="picCarousel">
-<div class="picTrack">
-<div class="pic"><img src="images/american1.jpg"></div>
-<div class="pic"><img src="images/american1.jpg"></div>
-</div>
-<div class="picDots"></div>
-</div>
-<div class="content">
-<div class="row"><b>Topside Curb Art</b><span class="price">$50</span></div>
-<p style="font-size:13px;color:#aaa">
-One side only. Best with a straight curb and no obstruction.
-</p>
-<select id="topsideStyle">
-<option>Texas Flag</option>
-<option>American Flag</option>
-</select>
-<button class="addbtn" onclick="addTopside()">Add to cart</button>
-</div>
-</div>
+        <!-- Add-ons -->
+        <div class="panel" style="background:transparent;border:none;box-shadow:none;">
+          <div class="hd" style="border:1px solid var(--stroke);border-radius:var(--r2); background: rgba(255,255,255,.04);">
+            <h2>Add-ons</h2>
+            <p>These apply to your order total.</p>
+          </div>
+          <div class="bd" style="padding:14px 0 0;">
+            <div class="addons">
+              <div class="addon">
+                <div class="icon">
+                  <img alt="Border add-on preview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect x='10' y='10' width='44' height='44' rx='8' fill='%23000000'/%3E%3Crect x='14' y='14' width='36' height='36' rx='6' fill='none' stroke='%234aa3ff' stroke-width='4'/%3E%3C/svg%3E" />
+                </div>
+                <div style="flex:1 1 auto;">
+                  <label style="font-weight:850;">Border <span style="color:var(--blue);font-weight:950;">+$5</span></label>
+                  <div style="color:var(--muted);font-size:13px;line-height:1.35;">Adds a clean border around the art for extra definition.</div>
+                  <div style="margin-top:8px;">
+                    <label style="display:flex;gap:10px;align-items:center;color:var(--muted);font-size:12px;">
+                      <input type="checkbox" id="addonBorder" />
+                      Add Border to cart
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-</div>
+        <div style="height:14px"></div>
 
-<!-- RIGHT / CART -->
-<div class="panel">
-<h3>Cart</h3>
-<div id="cart"></div>
-<p class="total">Total: $<span id="total">0</span></p>
+        <!-- Notes -->
+        <div class="panel" style="background:transparent;border:none;box-shadow:none;">
+          <div class="hd" style="border:1px solid var(--stroke);border-radius:var(--r2); background: rgba(255,255,255,.04);">
+            <h2>Quotes / Special Requests</h2>
+            <p>If you want something custom, type details here. It will be included in your text message.</p>
+          </div>
+          <div class="bd" style="padding:14px 0 0;">
+            <input class="input" id="addressInput" placeholder="Address or cross streets (optional)" />
+            <div style="height:10px"></div>
+            <textarea id="notesInput" placeholder="Notes (colors, house number, timing, special request, etc.)"></textarea>
+          </div>
+        </div>
 
-<button class="addbtn" onclick="contact()">Contact Now</button>
+      </div>
+    </section>
 
-<p style="font-size:12px;color:#aaa;margin-top:10px">
-Coming Soon items are 50% off.
-</p>
-</div>
+    <!-- RIGHT -->
+    <aside class="panel cart">
+      <div class="hd">
+        <h2>Your cart</h2>
+        <p>When you’re ready, tap <b>Contact Now</b> to send your order.</p>
+      </div>
+      <div class="bd">
+        <div id="cartList" class="cartlist"></div>
+        <div id="cartEmpty" class="empty">Cart is empty — add a service to get started.</div>
 
-</main>
+        <div class="totals">
+          <div class="line"><span>Subtotal</span><b id="subtotal">$0</b></div>
+          <div class="line"><span>Add-ons</span><b id="addonsTotal">$0</b></div>
+          <div class="line grand"><span>Total</span><b id="grandTotal" style="color:var(--blue)">$0</b></div>
+        </div>
 
-<script>
-let cart=[],total=0;
-const phone="+16828165741";
+        <div style="height:12px"></div>
 
-function add(name,price){
-cart.push({name,price});
-render();
-}
+        <!-- ONLY checkout contact button -->
+        <a class="btn primary" id="contactNow" href="#" style="width:100%;">Contact Now</a>
 
-function addTopside(){
-const v=document.getElementById("topsideStyle").value;
-add("Topside ("+v+")",50);
-}
+        <div class="coming-soon">
+          <b>Coming Soon Deal:</b> Items marked as <b>“Coming Soon”</b> are <b>50% off</b>.
+        </div>
 
-function render(){
-const c=document.getElementById("cart");
-c.innerHTML="";
-total=0;
-cart.forEach(i=>{
-total+=i.price;
-c.innerHTML+=`<div class="cartitem">${i.name} - $${i.price}</div>`;
-});
-document.getElementById("total").innerText=total;
-}
+        <div class="footnote">
+          No payment is collected on this page. Your order will open as a text message draft.
+        </div>
+      </div>
+    </aside>
+  </main>
 
-function contact(){
-let msg="Gway Paints Order:%0A";
-cart.forEach(i=>msg+=`${i.name} - $${i.price}%0A`);
-msg+=`Total: $${total}`;
-location.href=`sms:${phone}?body=${msg}`;
-}
+  <script>
+    // Phone number NEVER displayed — only used for sms: link.
+    const PHONE_E164 = "+16828165741";
 
-/* dots */
-document.querySelectorAll(".picCarousel").forEach(car=>{
-const track=car.querySelector(".picTrack");
-const dots=car.querySelector(".picDots");
-const slides=track.children;
-let i=0;
-for(let x=0;x<slides.length;x++){
-const d=document.createElement("button");
-d.className="picDot"+(x==0?" active":"");
-d.onclick=()=>{i=x;update()};
-dots.appendChild(d);
-}
-function update(){
-track.style.transform=`translateX(${-i*100}%)`;
-[...dots.children].forEach((d,x)=>d.classList.toggle("active",x==i));
-}
-});
-</script>
+    const ADDONS = { border: { id:"border", name:"Border", price:5 } };
+    const cart = []; // {id,name,price,qty,kind:'product'|'addon'}
 
+    const fmt = n => "$" + (Math.round(n * 100) / 100).toFixed(0);
+    const byId = id => document.getElementById(id);
+
+    function isInteractive(el){
+      if(!el) return false;
+      return !!el.closest('button, a, select, option, input, textarea, label');
+    }
+
+    function upsertItem(item){
+      const idx = cart.findIndex(x => x.id === item.id && x.kind === item.kind);
+      if(idx >= 0) cart[idx].qty += item.qty;
+      else cart.push(item);
+      renderCart();
+    }
+
+    function setAddonInCart(addonId, enabled){
+      const addon = ADDONS[addonId];
+      if(!addon) return;
+      const idx = cart.findIndex(x => x.id === addon.id && x.kind === "addon");
+      if(enabled){
+        if(idx >= 0) return;
+        cart.push({ id:addon.id, name:addon.name, price:addon.price, qty:1, kind:"addon" });
+      }else{
+        if(idx >= 0) cart.splice(idx,1);
+      }
+    }
+
+    function removeAt(i){ cart.splice(i,1); renderCart(); }
+
+    function totals(){
+      let sub = 0, add = 0;
+      cart.forEach(it=>{
+        const line = it.price * it.qty;
+        if(it.kind === "addon") add += line; else sub += line;
+      });
+      return { sub, add, grand: sub + add };
+    }
+
+    function cartText(){
+      const { sub, add, grand } = totals();
+      const lines = [];
+      lines.push("Gway Paints Order");
+      lines.push("-----------------");
+      if(cart.length === 0) lines.push("Cart: (empty)");
+      else cart.forEach(it => lines.push(`${it.qty}x ${it.name} - ${fmt(it.price * it.qty)}`));
+      lines.push("-----------------");
+      lines.push(`Subtotal: ${fmt(sub)}`);
+      lines.push(`Add-ons: ${fmt(add)}`);
+      lines.push(`Total: ${fmt(grand)}`);
+
+      const addr = byId("addressInput").value.trim();
+      const notes = byId("notesInput").value.trim();
+      if(addr) lines.push(`Address: ${addr}`);
+      if(notes) lines.push(`Notes: ${notes}`);
+      return lines.join("\n");
+    }
+
+    function makeSmsLink(){
+      const body = encodeURIComponent(cartText());
+      return `sms:${PHONE_E164}?&body=${body}`;
+    }
+
+    function updateContactLinks(){
+      byId("contactNow").href = makeSmsLink();
+    }
+
+    function renderCart(){
+      const list = byId("cartList");
+      list.innerHTML = "";
+      byId("cartEmpty").style.display = cart.length ? "none" : "block";
+
+      cart.forEach((it, i)=>{
+        const div = document.createElement("div");
+        div.className = "cartitem";
+        const isAddon = it.kind === "addon";
+        div.innerHTML = `
+          <div class="top">
+            <div>
+              <div class="title">${it.qty}x ${it.name}</div>
+              <div class="meta">${isAddon ? "Add-on" : "Service"} • ${fmt(it.price)} each</div>
+            </div>
+            <button class="x" aria-label="Remove item">X</button>
+          </div>
+          <div class="row">
+            <span style="color:var(--muted);font-size:13px;">Line total</span>
+            <b style="color:${isAddon ? "var(--blue)" : "var(--text)"};">${fmt(it.price * it.qty)}</b>
+          </div>
+        `;
+        div.querySelector(".x").addEventListener("click", ()=>removeAt(i));
+        list.appendChild(div);
+      });
+
+      const t = totals();
+      byId("subtotal").textContent = fmt(t.sub);
+      byId("addonsTotal").textContent = fmt(t.add);
+      byId("grandTotal").textContent = fmt(t.grand);
+      byId("topTotal").textContent = fmt(t.grand);
+
+      updateContactLinks();
+    }
+
+    // Wire product buttons (ALWAYS adds 1, no qty inputs)
+    document.querySelectorAll(".card").forEach(card=>{
+      const btn = card.querySelector(".addbtn");
+      const variantSelect = card.querySelector(".variant");
+      if(!btn) return;
+
+      btn.addEventListener("click", ()=>{
+        const baseId = card.dataset.id;
+        const baseName = card.dataset.name;
+        const price = Number(card.dataset.price);
+
+        let finalId = baseId;
+        let finalName = baseName;
+
+        if(variantSelect){
+          const v = variantSelect.value;
+          finalId = `${baseId}_${v.toLowerCase().replace(/\s+/g,'_')}`;
+          finalName = `${baseName} (${v})`;
+        }
+
+        upsertItem({ id: finalId, name: finalName, price, qty:1, kind:"product" });
+      });
+    });
+
+    // Add-ons
+    byId("addonBorder").addEventListener("change", (e)=>{
+      setAddonInCart("border", e.target.checked);
+      renderCart();
+    });
+
+    byId("addressInput").addEventListener("input", updateContactLinks);
+    byId("notesInput").addEventListener("input", updateContactLinks);
+
+    // ===== Main services carousel (2 per page) =====
+    const track = byId("track");
+    const dotsEl = byId("dots");
+    const slides = Array.from(track.children);
+    const viewport = byId("serviceViewport");
+
+    function perPage(){ return window.matchMedia("(max-width: 680px)").matches ? 1 : 2; }
+    let page = 0;
+    function pageCount(){ return Math.ceil(slides.length / perPage()); }
+    function clampPage(p){ return Math.max(0, Math.min(p, pageCount()-1)); }
+    function setPage(p, smooth=true){
+      page = clampPage(p);
+      track.style.transition = smooth ? "transform .28s ease" : "none";
+      const vp = viewport.getBoundingClientRect().width;
+      track.style.transform = `translateX(${-page * vp}px)`;
+      renderDots();
+    }
+    function renderDots(){
+      const count = pageCount();
+      dotsEl.innerHTML = "";
+      for(let i=0;i<count;i++){
+        const d = document.createElement("button");
+        d.className = "dot" + (i===page ? " active" : "");
+        d.type = "button";
+        d.addEventListener("click", ()=>setPage(i,true));
+        dotsEl.appendChild(d);
+      }
+    }
+
+    // Drag / swipe main carousel (DO NOT hijack controls)
+    let isDown=false, startX=0, startTransform=0;
+    function currentTranslateX(el){
+      const m = el.style.transform.match(/translateX\(([-0-9.]+)px\)/);
+      return m ? Number(m[1]) : 0;
+    }
+    function onDown(clientX){
+      isDown=true; startX=clientX; startTransform=currentTranslateX(track);
+      track.style.transition="none";
+    }
+    function onMove(clientX){
+      if(!isDown) return;
+      const dx = clientX - startX;
+      track.style.transform = `translateX(${startTransform + dx}px)`;
+    }
+    function onUp(clientX){
+      if(!isDown) return;
+      isDown=false;
+      const dx = clientX - startX;
+      const threshold = 60;
+      if(dx < -threshold) setPage(page+1,true);
+      else if(dx > threshold) setPage(page-1,true);
+      else setPage(page,true);
+    }
+
+    viewport.addEventListener("touchstart", (e)=>{
+      if(isInteractive(e.target)) return;
+      onDown(e.touches[0].clientX);
+    }, {passive:true});
+    viewport.addEventListener("touchmove", (e)=>{
+      if(!isDown) return;
+      onMove(e.touches[0].clientX);
+    }, {passive:true});
+    viewport.addEventListener("touchend", (e)=>{
+      if(!isDown) return;
+      onUp((e.changedTouches[0]||e.touches[0])?.clientX ?? startX);
+    }, {passive:true});
+
+    viewport.addEventListener("mousedown", (e)=>{
+      if(isInteractive(e.target)) return;
+      e.preventDefault();
+      onDown(e.clientX);
+    });
+    window.addEventListener("mousemove", (e)=>onMove(e.clientX));
+    window.addEventListener("mouseup", (e)=>onUp(e.clientX));
+    window.addEventListener("resize", ()=>setPage(page,false));
+
+    // ===== Picture carousels inside each card =====
+    function initPicCarousel(root){
+      const t = root.querySelector(".picTrack");
+      const pics = Array.from(t.children);
+      const dotsWrap = root.querySelector(".picDots");
+      let idx = 0;
+
+      function render(){
+        t.style.transform = `translateX(${-idx * root.clientWidth}px)`;
+        dotsWrap.innerHTML = "";
+        for(let i=0;i<pics.length;i++){
+          const b = document.createElement("button");
+          b.type="button";
+          b.className = "picDot" + (i===idx ? " active" : "");
+          b.addEventListener("click", (e)=>{ e.stopPropagation(); idx=i; render(); });
+          dotsWrap.appendChild(b);
+        }
+      }
+
+      let down=false, sx=0, start=0;
+      function cur(){
+        const m = t.style.transform.match(/translateX\(([-0-9.]+)px\)/);
+        return m ? Number(m[1]) : 0;
+      }
+      function pd(x){
+        down=true; sx=x; start=cur();
+        t.style.transition="none";
+      }
+      function pm(x){
+        if(!down) return;
+        const dx = x - sx;
+        t.style.transform = `translateX(${start + dx}px)`;
+      }
+      function pu(x){
+        if(!down) return;
+        down=false;
+        const dx = x - sx;
+        const threshold = 45;
+        if(dx < -threshold) idx = Math.min(idx+1, pics.length-1);
+        else if(dx > threshold) idx = Math.max(idx-1, 0);
+        t.style.transition="transform .28s ease";
+        render();
+      }
+
+      root.addEventListener("touchstart", (e)=>{
+        if(isInteractive(e.target)) return;
+        e.stopPropagation();
+        pd(e.touches[0].clientX);
+      }, {passive:true});
+      root.addEventListener("touchmove", (e)=>{
+        if(!down) return;
+        e.stopPropagation();
+        pm(e.touches[0].clientX);
+      }, {passive:true});
+      root.addEventListener("touchend", (e)=>{
+        if(!down) return;
+        e.stopPropagation();
+        pu((e.changedTouches[0]||e.touches[0])?.clientX ?? sx);
+      }, {passive:true});
+
+      root.addEventListener("mousedown", (e)=>{
+        if(isInteractive(e.target)) return;
+        e.preventDefault();
+        e.stopPropagation();
+        pd(e.clientX);
+      });
+      window.addEventListener("mousemove", (e)=>{ if(down) pm(e.clientX); });
+      window.addEventListener("mouseup", (e)=>{ if(down) pu(e.clientX); });
+
+      window.addEventListener("resize", ()=>{ t.style.transition="none"; render(); });
+
+      t.style.transition="transform .28s ease";
+      render();
+    }
+
+    document.querySelectorAll("[data-pic-carousel]").forEach(initPicCarousel);
+
+    // Init
+    renderDots();
+    setPage(0,false);
+    renderCart();
+  </script>
 </body>
 </html>
