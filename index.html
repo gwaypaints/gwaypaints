@@ -1,400 +1,457 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Gway Paints</title>
-  <meta name="description" content="Custom curb address paint — Plain, Texas Flag, American Flag, Twin Stars. Add-ons available." />
+  <meta name="description" content="Gway Paints curb art — choose a design and contact to book." />
 
   <style>
     :root{
-      --bg1:#0b0c10;
-      --bg2:#10131a;
-      --card:#141823cc;
-      --text:#e8eaf0;
-      --muted:#a7adbd;
+      --bg1:#0b0f1a;
+      --bg2:#0a0b10;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.04);
+      --stroke: rgba(255,255,255,.10);
+      --text:#f2f2f7;
+      --muted:#b9b9c7;
       --blue:#4aa3ff;
-      --green:#3ddc84;
-      --shadow: 0 10px 35px rgba(0,0,0,.35);
-      --radius: 20px;
+      --shadow: 0 18px 50px rgba(0,0,0,.45);
+      --r: 18px;
+      --r2: 26px;
+      --gap: 14px;
     }
-    *{box-sizing:border-box}
+    *{ box-sizing:border-box; }
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--text);
-      background:
-        radial-gradient(1200px 600px at 20% -10%, rgba(74,163,255,.12), transparent 60%),
-        radial-gradient(900px 500px at 90% 10%, rgba(61,220,132,.10), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg2));
-      min-height:100vh;
+      background: radial-gradient(900px 600px at 15% 0%, rgba(74,163,255,.10), transparent 60%),
+                  radial-gradient(900px 600px at 85% 10%, rgba(255,74,95,.08), transparent 55%),
+                  linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 100%);
+      overflow-x:hidden;
     }
 
+    /* ===== Header + Spray Banner (kept) ===== */
     header{
-      position:sticky; top:0; z-index:30;
-      background:#000;
-      border-bottom: 1px solid rgba(255,255,255,.08);
+      position:sticky; top:0; z-index:25;
+      backdrop-filter: blur(10px);
+      background: rgba(0,0,0,.55);
+      border-bottom:1px solid rgba(255,255,255,.12);
     }
     .banner{
       position:relative;
-      padding:18px 18px 16px;
       overflow:hidden;
+      padding:22px 16px;
+      background:#000;
     }
     .banner::before{
       content:"";
-      position:absolute; inset:-40px;
+      position:absolute; inset:-60px;
       background:
-        radial-gradient(circle at 15% 40%, rgba(255,255,255,.10) 0 8px, transparent 9px),
-        radial-gradient(circle at 35% 70%, rgba(255,255,255,.10) 0 10px, transparent 11px),
-        radial-gradient(circle at 55% 45%, rgba(255,255,255,.10) 0 6px, transparent 7px),
-        radial-gradient(circle at 75% 65%, rgba(255,255,255,.10) 0 12px, transparent 13px),
-        radial-gradient(circle at 85% 30%, rgba(255,255,255,.10) 0 7px, transparent 8px);
-      opacity:.9;
-      pointer-events:none;
-      transform: rotate(-2deg);
+        radial-gradient(520px 220px at 18% 45%, rgba(74,163,255,.30), transparent 65%),
+        radial-gradient(600px 240px at 45% 70%, rgba(255,74,95,.24), transparent 70%),
+        radial-gradient(560px 240px at 72% 40%, rgba(53,208,127,.20), transparent 68%),
+        radial-gradient(680px 280px at 88% 70%, rgba(255,255,255,.08), transparent 72%);
+      opacity:.95;
+      mix-blend-mode: screen;
+      transform: rotate(-1deg);
+      z-index:0;
     }
-    .brand{
-      position:relative;
-      display:flex; align-items:flex-end; justify-content:space-between;
-      gap:14px;
-      max-width:1100px;
+    .banner::after{
+      content:"";
+      position:absolute; inset:0;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.22) 1px, transparent 1.6px),
+        radial-gradient(circle, rgba(255,255,255,.14) 1px, transparent 2.2px),
+        radial-gradient(circle, rgba(255,255,255,.10) 1px, transparent 2.8px);
+      background-size: 14px 14px, 22px 22px, 34px 34px;
+      background-position: 0 0, 7px 11px, 13px 5px;
+      opacity:.22;
+      mix-blend-mode: overlay;
+      z-index:0;
+      pointer-events:none;
+    }
+    .wrap{
+      max-width:1200px;
       margin:0 auto;
+      display:flex;
+      gap:14px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      position:relative;
+      z-index:1;
     }
     .brand h1{
       margin:0;
-      font-size: clamp(34px, 6vw, 56px);
-      letter-spacing:.5px;
-      color:#fff;
-      font-family: "Brush Script MT", "Segoe Script", "Snell Roundhand", cursive;
-      font-weight: 600;
-      line-height: 1;
-      text-shadow: 0 6px 30px rgba(0,0,0,.6);
-      user-select:none;
+      font-family: "Brush Script MT","Segoe Script","Comic Sans MS",cursive;
+      font-size: clamp(30px, 4vw, 48px);
+      line-height:1.05;
+      text-shadow: 0 10px 26px rgba(0,0,0,.75);
     }
-    .brand .tagline{
-      margin:0 0 6px;
-      color: rgba(255,255,255,.75);
+    .brand p{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size: 13px;
+    }
+    .top-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+    }
+    .btn{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      padding:10px 14px;
+      border-radius:999px;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      box-shadow: 0 10px 24px rgba(0,0,0,.25);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select:none;
+      white-space:nowrap;
+      font-weight:800;
       font-size: 14px;
-      text-align:right;
-      max-width: 360px;
     }
 
+    /* ===== Layout ===== */
     main{
-      max-width:1100px;
-      margin: 18px auto 80px;
+      max-width:1200px;
+      margin:18px auto 64px;
       padding: 0 16px;
-    }
-    .topRow{
       display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:16px;
-      margin-top: 14px;
+      grid-template-columns: 1.7fr 1fr;
+      gap: 16px;
+      align-items:start;
     }
-    @media (max-width: 920px){
-      .topRow{grid-template-columns:1fr}
-      .brand{flex-direction:column; align-items:flex-start}
-      .brand .tagline{text-align:left; margin:8px 0 0}
+    @media (max-width: 980px){
+      main{ grid-template-columns: 1fr; }
+    }
+
+    .panel{
+      background: var(--panel);
+      border:1px solid var(--stroke);
+      border-radius: var(--r2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      backdrop-filter: blur(10px);
+    }
+    .hd{
+      padding:16px 16px 12px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), transparent);
+    }
+    .hd h2{ margin:0; font-size:18px; letter-spacing:.2px; }
+    .hd p{ margin:6px 0 0; color:var(--muted); font-size:13px; line-height:1.35; }
+    .bd{ padding:14px 16px 16px; }
+
+    /* ===== Main services carousel ===== */
+    .carousel{ position:relative; padding-bottom: 12px; }
+    .viewport{ overflow:hidden; border-radius: 18px; }
+    .track{
+      display:flex;
+      gap: var(--gap);
+      will-change: transform;
+      transition: transform .28s ease;
+      padding: 2px;
+      touch-action: pan-y;
+    }
+    .slide{
+      flex: 0 0 calc((100% - var(--gap)) / 2);
+      min-width: calc((100% - var(--gap)) / 2);
+    }
+    @media (max-width: 680px){
+      .slide{ flex-basis: 100%; min-width:100%; }
     }
 
     .card{
-      background: var(--card);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      backdrop-filter: blur(8px);
-    }
-    .cardHeader{
-      padding: 14px 16px 10px;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-      display:flex; align-items:center; justify-content:space-between;
-      gap:10px;
-    }
-    .cardHeader h2{ margin:0; font-size:16px; }
-    .hint{
-      margin:0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height:1.35;
-      padding: 12px 16px;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap:16px;
-      padding: 12px;
-    }
-    @media (max-width: 720px){ .grid{grid-template-columns:1fr} }
-
-    .product{
-      background: rgba(10,12,18,.55);
-      border:1px solid rgba(255,255,255,.08);
+      background: var(--panel2);
+      border:1px solid rgba(255,255,255,.10);
       border-radius: 18px;
       overflow:hidden;
       display:flex;
       flex-direction:column;
-      min-height: 100%;
+      min-height:100%;
     }
-    .pBody{padding: 12px 14px 14px}
-    .pTitle{
-      display:flex; align-items:flex-start; justify-content:space-between;
-      gap:10px;
-    }
-    .pTitle h3{ margin:0; font-size:16px; line-height:1.2; }
-    .price{ color: var(--blue); font-weight: 800; white-space:nowrap; }
-    .desc{ margin: 8px 0 10px; color: var(--muted); font-size:13px; line-height:1.35; }
 
-    /* Carousel */
-    .carousel{
+    /* ===== Picture carousel inside each card ===== */
+    .picCarousel{
       position:relative;
-      background: #0c0f16;
-      border-bottom:1px solid rgba(255,255,255,.08);
-      touch-action: pan-y;
+      aspect-ratio: 16/10;
+      overflow:hidden;
       user-select:none;
+      touch-action: pan-y;
+      background: rgba(0,0,0,.15);
     }
-    .track{
+    .picTrack{
+      height:100%;
       display:flex;
-      width:100%;
-      transform: translateX(0);
-      transition: transform .25s ease;
+      transition: transform .28s ease;
+      will-change: transform;
     }
-    .slide{
-      min-width:100%;
-      aspect-ratio: 16/9;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+    .pic{
+      flex: 0 0 100%;
+      height:100%;
       position:relative;
-    }
-    .slide img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      display:block;
-    }
-    .placeholder{
-      width:100%;
-      height:100%;
       display:flex;
-      align-items:center;
-      justify-content:center;
-      background:
-        radial-gradient(500px 240px at 20% 20%, rgba(74,163,255,.18), transparent 60%),
-        radial-gradient(500px 240px at 80% 80%, rgba(61,220,132,.14), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      color: rgba(255,255,255,.75);
-      font-size: 13px;
-      letter-spacing:.2px;
+      align-items:flex-end;
+      padding:12px;
     }
-    .dots{
-      position:absolute;
-      left:0; right:0; bottom:10px;
-      display:flex;
-      justify-content:center;
-      gap:6px;
-      pointer-events:none;
-    }
-    .dot{ width:7px; height:7px; border-radius: 99px; background: rgba(255,255,255,.35); }
-    .dot.active{ background: rgba(255,255,255,.9); }
 
-    .navBtn{
-      position:absolute;
-      top:50%;
-      transform: translateY(-50%);
-      border:none;
-      width:38px; height:38px;
-      border-radius: 12px;
-      background: rgba(0,0,0,.35);
-      color:#fff;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      backdrop-filter: blur(6px);
-      border:1px solid rgba(255,255,255,.10);
+    /* Placeholder example looks (2 each) */
+    .ex-plain-1{ background:
+      radial-gradient(580px 220px at 20% 20%, rgba(74,163,255,.22), transparent 58%),
+      linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
     }
-    .navBtn:hover{background: rgba(0,0,0,.5)}
-    .navBtn:active{transform: translateY(-50%) scale(.98)}
-    .prev{left:10px}
-    .next{right:10px}
-    .navBtn[disabled]{ opacity:.35; cursor:not-allowed; }
+    .ex-plain-2{ background:
+      radial-gradient(560px 220px at 75% 40%, rgba(255,255,255,.10), transparent 62%),
+      radial-gradient(520px 220px at 25% 60%, rgba(53,208,127,.14), transparent 62%),
+      linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    }
 
-    /* Controls */
-    .row{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
-      flex-wrap:wrap;
-      margin-top:10px;
+    .ex-tx-1{ background:
+      radial-gradient(620px 240px at 25% 35%, rgba(255,74,95,.20), transparent 58%),
+      radial-gradient(520px 220px at 75% 45%, rgba(74,163,255,.18), transparent 58%),
+      linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
     }
-    .qty{ display:flex; gap:8px; align-items:center; }
-    .qty input{
-      width:72px;
-      padding:10px 10px;
-      border-radius: 12px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.25);
-      color: var(--text);
-      outline:none;
+    .ex-tx-2{ background:
+      radial-gradient(680px 260px at 60% 35%, rgba(74,163,255,.18), transparent 60%),
+      radial-gradient(540px 240px at 30% 60%, rgba(255,74,95,.16), transparent 62%),
+      linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
     }
-    .btn{
-      border:none;
-      padding:10px 12px;
-      border-radius: 14px;
-      cursor:pointer;
-      background: rgba(255,255,255,.10);
-      color: var(--text);
-      border:1px solid rgba(255,255,255,.12);
+
+    .ex-twins-1{ background:
+      radial-gradient(620px 240px at 25% 30%, rgba(53,208,127,.16), transparent 60%),
+      radial-gradient(520px 220px at 80% 50%, rgba(255,255,255,.08), transparent 62%),
+      linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    }
+    .ex-twins-2{ background:
+      radial-gradient(620px 240px at 70% 35%, rgba(53,208,127,.14), transparent 62%),
+      radial-gradient(520px 220px at 28% 55%, rgba(74,163,255,.12), transparent 62%),
+      linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    }
+
+    .ex-us-1{ background:
+      radial-gradient(650px 260px at 30% 40%, rgba(74,163,255,.18), transparent 60%),
+      radial-gradient(520px 220px at 78% 55%, rgba(255,74,95,.15), transparent 62%),
+      linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    }
+    .ex-us-2{ background:
+      radial-gradient(700px 280px at 60% 35%, rgba(255,74,95,.16), transparent 62%),
+      radial-gradient(540px 240px at 25% 60%, rgba(255,255,255,.10), transparent 64%),
+      linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    }
+
+    .ex-top-1{ background:
+      radial-gradient(640px 240px at 30% 35%, rgba(74,163,255,.16), transparent 60%),
+      radial-gradient(520px 220px at 75% 55%, rgba(255,74,95,.13), transparent 62%),
+      linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    }
+    .ex-top-2{ background:
+      radial-gradient(640px 240px at 70% 35%, rgba(255,74,95,.14), transparent 62%),
+      radial-gradient(520px 220px at 30% 55%, rgba(74,163,255,.12), transparent 62%),
+      linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    }
+
+    .tag{
       display:inline-flex;
       gap:8px;
       align-items:center;
-      font-weight:700;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.45);
+      font-size:12px;
+      color:var(--muted);
+      backdrop-filter: blur(6px);
+      position:relative;
+      z-index:2;
     }
-    .btn:hover{background: rgba(255,255,255,.14)}
-    .btnPrimary{
-      background: rgba(74,163,255,.18);
-      border-color: rgba(74,163,255,.25);
+    .tag b{ color:var(--text); }
+
+    .picDots{
+      position:absolute;
+      left:0; right:0; bottom:8px;
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      z-index:3;
+      pointer-events:auto;
+    }
+    .picDot{
+      width:7px; height:7px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.10);
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .picDot.active{
+      background: rgba(74,163,255,.55);
+      border-color: rgba(74,163,255,.75);
+      transform: scale(1.15);
     }
 
-    .select, .checkbox{
+    .content{
+      padding:12px 12px 14px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      height:100%;
+    }
+    .row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .name{ margin:0; font-weight:900; letter-spacing:.2px; font-size:16px; }
+    .desc{ margin:0; color:var(--muted); font-size:13px; line-height:1.35; }
+    .price{ font-weight:950; color:var(--blue); font-size:16px; }
+
+    .select,.qty,.input,textarea{
       width:100%;
-      margin-top:8px;
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
       padding:10px 10px;
-      border-radius: 14px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.22);
-      color: var(--text);
-      font-size: 14px;
-    }
-    .select select{
-      flex:1;
-      margin-left:10px;
-      background: transparent;
-      border:none;
-      color: var(--text);
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.30);
+      color:var(--text);
       outline:none;
-      font-weight:700;
     }
-    .select option{color:#000}
-    .checkbox input{transform: scale(1.1)}
-    .addonPrice{ color: var(--blue); font-weight:800; margin-left:8px; white-space:nowrap; }
+    textarea{ min-height: 90px; resize:vertical; }
+    .addbtn{
+      width:100%;
+      border:none;
+      border-radius:14px;
+      padding:11px 12px;
+      cursor:pointer;
+      font-weight:900;
+      color:#071018;
+      background: linear-gradient(135deg, rgba(74,163,255,.95), rgba(120,220,255,.75));
+      box-shadow: 0 18px 40px rgba(0,0,0,.35);
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .addbtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
 
-    /* Cart */
-    .cartBody{padding: 12px 16px 16px}
-    .cartList{ display:flex; flex-direction:column; gap:10px; margin-top:10px; }
-    .cartItem{
+    .dots{
       display:flex;
+      justify-content:center;
+      gap:8px;
+      padding: 10px 0 0;
+      user-select:none;
+    }
+    .dot{
+      width:7px; height:7px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.10);
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .dot.active{
+      background: rgba(74,163,255,.55);
+      border-color: rgba(74,163,255,.75);
+      transform: scale(1.15);
+    }
+
+    .addons{ display:grid; gap:10px; }
+    .addon{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding:12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+    }
+    .icon{
+      width:38px; height:38px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      display:flex; align-items:center; justify-content:center;
+      overflow:hidden;
+      flex: 0 0 auto;
+    }
+    .icon img{ width:100%; height:100%; object-fit:cover; }
+
+    .cart{ position:sticky; top:92px; }
+    .cartlist{ display:grid; gap:10px; }
+    .cartitem{
+      padding:12px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      display:grid;
+      gap:8px;
+    }
+    .cartitem .top{
+      display:flex;
+      align-items:flex-start;
       justify-content:space-between;
       gap:10px;
-      padding:10px 12px;
-      border-radius: 14px;
-      background: rgba(0,0,0,.25);
-      border:1px solid rgba(255,255,255,.10);
     }
-    .cartItem small{color: var(--muted)}
-    .totalRow{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
+    .cartitem .title{ font-weight:900; font-size:14px; line-height:1.25; }
+    .cartitem .meta{ color:var(--muted); font-size:12px; line-height:1.35; margin-top:4px; }
+    .x{
+      border:none;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      color:var(--text);
+      border-radius:10px;
+      padding:6px 9px;
+      cursor:pointer;
+      font-weight:900;
+    }
+    .totals{
       margin-top:12px;
       padding-top:12px;
       border-top:1px solid rgba(255,255,255,.10);
-      font-weight:800;
+      display:grid;
+      gap:6px;
+      font-size:14px;
     }
-    .totalRow span:last-child{color: var(--green)}
+    .totals .line{ display:flex; justify-content:space-between; gap:10px; }
+    .totals .grand{ font-size:16px; font-weight:950; }
+    .empty{ color:var(--muted); font-size:13px; padding: 6px 2px 2px; }
+    .footnote{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.4;
+      border-top:1px dashed rgba(255,255,255,.14);
+      padding-top:10px;
+    }
 
-    .contactBtn{
-      width:100%;
-      margin-top:12px;
-      padding: 12px 14px;
-      border-radius: 16px;
-      border:1px solid rgba(74,163,255,.30);
-      background: rgba(74,163,255,.18);
-      color:#fff;
-      font-weight:900;
-      font-size: 15px;
-      cursor:pointer;
-    }
-    .contactBtn:hover{background: rgba(74,163,255,.24)}
-    .tiny{
+    .coming-soon{
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
       color: var(--muted);
       font-size: 12px;
-      line-height:1.35;
-      margin-top: 10px;
+      line-height: 1.4;
     }
-
-    /* Modal */
-    .modal{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.6);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding: 18px;
-      z-index: 60;
-    }
-    .modal.open{display:flex}
-    .modalCard{
-      width:min(520px, 100%);
-      border-radius: 20px;
-      background: rgba(15,18,26,.95);
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .modalHead{
-      padding:14px 16px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      border-bottom:1px solid rgba(255,255,255,.10);
-    }
-    .modalHead strong{font-size:15px}
-    .x{
-      border:none;
-      width:38px; height:38px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.10);
-      color:#fff;
-      cursor:pointer;
-      border:1px solid rgba(255,255,255,.10);
-    }
-    .modalBody{padding: 14px 16px 16px}
-    .callRow{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
-      background: rgba(0,0,0,.25);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius: 16px;
-      padding:12px 12px;
-      margin-top: 10px;
-    }
-    .phone{
-      font-weight: 900;
-      letter-spacing:.3px;
-      color:#fff;
-      font-size: 16px;
-    }
-    .callLink{
-      text-decoration:none;
-      padding:10px 12px;
-      border-radius: 14px;
-      border:1px solid rgba(61,220,132,.35);
-      background: rgba(61,220,132,.16);
-      color:#fff;
-      font-weight:900;
+    .coming-soon b{ color: var(--text); }
+    .coming-soon .pill{
       display:inline-flex;
       align-items:center;
       gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(74,163,255,.30);
+      background: rgba(74,163,255,.10);
+      color:#dff0ff;
+      font-weight:850;
+      margin-top:8px;
     }
   </style>
 </head>
@@ -402,468 +459,486 @@
 <body>
   <header>
     <div class="banner">
-      <div class="brand">
-        <h1>Gway Paints</h1>
-        <p class="tagline">Custom curb address paint • Clean finish • Add-ons available</p>
+      <div class="wrap">
+        <div class="brand">
+          <h1>Gway Paints</h1>
+          <p>Curb art • Pick a service • Add-ons optional</p>
+        </div>
+
+        <!-- ONLY total up top (no extra contact button) -->
+        <div class="top-actions">
+          <span class="btn" style="pointer-events:none;">Total: <b id="topTotal" style="color:var(--blue)">$0</b></span>
+        </div>
       </div>
     </div>
   </header>
 
   <main>
-    <div class="topRow">
+    <!-- LEFT -->
+    <section class="panel">
+      <div class="hd">
+        <h2>Choose your curb art</h2>
+        <p>Swipe through services, and swipe each picture for <b>example looks</b>.</p>
+      </div>
 
-      <!-- SERVICES (Coming Soon section REMOVED) -->
-      <section class="card">
-        <div class="cardHeader">
-          <h2>Services</h2>
-          <span style="color:var(--muted);font-size:13px;">Swipe photos ↔</span>
-        </div>
-        <p class="hint">
-          Pick your service, choose add-ons, then hit <b>Contact Now</b>. Your phone number stays hidden until you click.
-        </p>
+      <div class="bd">
+        <div class="carousel" id="serviceCarousel">
+          <div class="viewport">
+            <div class="track" id="track">
 
-        <div class="grid">
-
-          <!-- Plain -->
-          <article class="product" data-sku="plain" data-title="Plain" data-base="20">
-            <div class="carousel">
-              <div class="track">
-                <div class="slide"><img src="images/plain-1.webp" alt="Plain curb paint example 1" /></div>
-                <div class="slide"><img src="images/plain-2.webp" alt="Plain curb paint example 2" /></div>
+              <!-- Plain -->
+              <div class="slide">
+                <article class="card" data-id="plain" data-name="Plain" data-price="20">
+                  <div class="picCarousel" data-pic-carousel>
+                    <div class="picTrack">
+                      <div class="pic ex-plain-1"><span class="tag"><b>Plain</b> • Example 1</span></div>
+                      <div class="pic ex-plain-2"><span class="tag"><b>Plain</b> • Example 2</span></div>
+                    </div>
+                    <div class="picDots"></div>
+                  </div>
+                  <div class="content">
+                    <div class="row"><p class="name">Plain</p><span class="price">$20</span></div>
+                    <p class="desc">Clean numbers + outline. Great if you want it simple and readable.</p>
+                    <div class="row" style="gap:10px">
+                      <input class="qty" type="number" min="1" value="1" />
+                      <button class="addbtn">Add to cart</button>
+                    </div>
+                  </div>
+                </article>
               </div>
-              <button class="navBtn prev" type="button" aria-label="Previous image">‹</button>
-              <button class="navBtn next" type="button" aria-label="Next image">›</button>
-              <div class="dots"><div class="dot active"></div><div class="dot"></div></div>
-            </div>
 
-            <div class="pBody">
-              <div class="pTitle"><h3>Plain</h3><div class="price">$20</div></div>
-              <div class="desc">Clean, readable address — simple and sharp.</div>
-
-              <label class="checkbox">
-                <span>Double-sided art <span class="addonPrice">+$20</span></span>
-                <input type="checkbox" class="doubleSided" />
-              </label>
-
-              <div class="row">
-                <div class="qty">
-                  <label for="qty-plain" style="color:var(--muted);font-size:13px;">Qty</label>
-                  <input id="qty-plain" type="number" min="1" value="1" class="qtyInput" />
-                </div>
-                <button class="btn btnPrimary addBtn" type="button">Add to Cart</button>
+              <!-- Texas Flag -->
+              <div class="slide">
+                <article class="card" data-id="txflag" data-name="Texas Flag" data-price="40">
+                  <div class="picCarousel" data-pic-carousel>
+                    <div class="picTrack">
+                      <div class="pic ex-tx-1"><span class="tag"><b>Texas Flag</b> • Example 1</span></div>
+                      <div class="pic ex-tx-2"><span class="tag"><b>Texas Flag</b> • Example 2</span></div>
+                    </div>
+                    <div class="picDots"></div>
+                  </div>
+                  <div class="content">
+                    <div class="row"><p class="name">Texas Flag</p><span class="price">$40</span></div>
+                    <p class="desc">Texas flag theme with strong contrast—stands out from the street.</p>
+                    <div class="row" style="gap:10px">
+                      <input class="qty" type="number" min="1" value="1" />
+                      <button class="addbtn">Add to cart</button>
+                    </div>
+                  </div>
+                </article>
               </div>
-            </div>
-          </article>
 
-          <!-- Texas Flag -->
-          <article class="product" data-sku="texas" data-title="Texas Flag" data-base="40">
-            <div class="carousel">
-              <div class="track">
-                <div class="slide"><img src="images/texas-1.webp" alt="Texas flag curb paint example 1" /></div>
-                <div class="slide"><img src="images/texas-2.webp" alt="Texas flag curb paint example 2" /></div>
+              <!-- Twin Stars -->
+              <div class="slide">
+                <article class="card" data-id="twinstars" data-name="Twin Stars" data-price="25">
+                  <div class="picCarousel" data-pic-carousel>
+                    <div class="picTrack">
+                      <div class="pic ex-twins-1"><span class="tag"><b>Twin Stars</b> • Example 1</span></div>
+                      <div class="pic ex-twins-2"><span class="tag"><b>Twin Stars</b> • Example 2</span></div>
+                    </div>
+                    <div class="picDots"></div>
+                  </div>
+                  <div class="content">
+                    <div class="row"><p class="name">Twin Stars</p><span class="price">$25</span></div>
+                    <p class="desc">Twin stars style with a bold look that still keeps numbers readable.</p>
+                    <div class="row" style="gap:10px">
+                      <input class="qty" type="number" min="1" value="1" />
+                      <button class="addbtn">Add to cart</button>
+                    </div>
+                  </div>
+                </article>
               </div>
-              <button class="navBtn prev" type="button" aria-label="Previous image">‹</button>
-              <button class="navBtn next" type="button" aria-label="Next image">›</button>
-              <div class="dots"><div class="dot active"></div><div class="dot"></div></div>
-            </div>
 
-            <div class="pBody">
-              <div class="pTitle"><h3>Texas Flag</h3><div class="price">$40</div></div>
-              <div class="desc">Texas pride style — bold and clean.</div>
-
-              <label class="checkbox">
-                <span>Double-sided art <span class="addonPrice">+$20</span></span>
-                <input type="checkbox" class="doubleSided" />
-              </label>
-
-              <div class="row">
-                <div class="qty">
-                  <label for="qty-texas" style="color:var(--muted);font-size:13px;">Qty</label>
-                  <input id="qty-texas" type="number" min="1" value="1" class="qtyInput" />
-                </div>
-                <button class="btn btnPrimary addBtn" type="button">Add to Cart</button>
+              <!-- American Flag -->
+              <div class="slide">
+                <article class="card" data-id="usflag" data-name="American Flag" data-price="50">
+                  <div class="picCarousel" data-pic-carousel>
+                    <div class="picTrack">
+                      <div class="pic ex-us-1"><span class="tag"><b>American Flag</b> • Example 1</span></div>
+                      <div class="pic ex-us-2"><span class="tag"><b>American Flag</b> • Example 2</span></div>
+                    </div>
+                    <div class="picDots"></div>
+                  </div>
+                  <div class="content">
+                    <div class="row"><p class="name">American Flag</p><span class="price">$50</span></div>
+                    <p class="desc">American flag theme with bold presence and clean readability.</p>
+                    <div class="row" style="gap:10px">
+                      <input class="qty" type="number" min="1" value="1" />
+                      <button class="addbtn">Add to cart</button>
+                    </div>
+                  </div>
+                </article>
               </div>
-            </div>
-          </article>
 
-          <!-- American Flag (fixed to .jpg) -->
-          <article class="product" data-sku="american" data-title="American Flag" data-base="50">
-            <div class="carousel">
-              <div class="track">
-                <div class="slide">
-                  <img src="images/american-1.jpg" alt="American flag curb paint example 1" />
-                </div>
-                <div class="slide">
-                  <div class="placeholder">American Flag — add 2nd photo later</div>
-                </div>
+              <!-- Topside Curb Art -->
+              <div class="slide">
+                <article class="card" data-id="topside" data-name="Topside Curb Art" data-price="50">
+                  <div class="picCarousel" data-pic-carousel>
+                    <div class="picTrack">
+                      <div class="pic ex-top-1"><span class="tag"><b>Topside</b> • Example 1</span></div>
+                      <div class="pic ex-top-2"><span class="tag"><b>Topside</b> • Example 2</span></div>
+                    </div>
+                    <div class="picDots"></div>
+                  </div>
+                  <div class="content">
+                    <div class="row"><p class="name">Topside Curb Art</p><span class="price">$50</span></div>
+                    <p class="desc"><b>Disclaimer:</b> This option is <b>one side only</b> for the topside. Choose a style:</p>
+                    <select class="select variant">
+                      <option value="Texas Flag">Texas Flag</option>
+                      <option value="American Flag">American Flag</option>
+                    </select>
+                    <div class="row" style="gap:10px">
+                      <input class="qty" type="number" min="1" value="1" />
+                      <button class="addbtn">Add to cart</button>
+                    </div>
+                  </div>
+                </article>
               </div>
-              <button class="navBtn prev" type="button" aria-label="Previous image">‹</button>
-              <button class="navBtn next" type="button" aria-label="Next image">›</button>
-              <div class="dots"><div class="dot active"></div><div class="dot"></div></div>
+
             </div>
-
-            <div class="pBody">
-              <div class="pTitle"><h3>American Flag</h3><div class="price">$50</div></div>
-              <div class="desc">Classic American flag layout — crisp and high-contrast.</div>
-
-              <label class="checkbox">
-                <span>Double-sided art <span class="addonPrice">+$20</span></span>
-                <input type="checkbox" class="doubleSided" />
-              </label>
-
-              <div class="row">
-                <div class="qty">
-                  <label for="qty-american" style="color:var(--muted);font-size:13px;">Qty</label>
-                  <input id="qty-american" type="number" min="1" value="1" class="qtyInput" />
-                </div>
-                <button class="btn btnPrimary addBtn" type="button">Add to Cart</button>
-              </div>
-            </div>
-          </article>
-
-          <!-- Twin Stars (photo added) -->
-          <article class="product" data-sku="twinstars" data-title="Twin Stars" data-base="25">
-            <div class="carousel">
-              <div class="track">
-                <div class="slide">
-                  <img src="images/twinstars-1.jpg" alt="Twin Stars curb paint example 1" />
-                </div>
-                <div class="slide">
-                  <div class="placeholder">Twin Stars — add 2nd photo later</div>
-                </div>
-              </div>
-              <button class="navBtn prev" type="button" aria-label="Previous image">‹</button>
-              <button class="navBtn next" type="button" aria-label="Next image">›</button>
-              <div class="dots"><div class="dot active"></div><div class="dot"></div></div>
-            </div>
-
-            <div class="pBody">
-              <div class="pTitle"><h3>Twin Stars</h3><div class="price">$25</div></div>
-              <div class="desc">Two-star design option — clean and unique.</div>
-
-              <label class="checkbox">
-                <span>Double-sided art <span class="addonPrice">+$20</span></span>
-                <input type="checkbox" class="doubleSided" />
-              </label>
-
-              <div class="row">
-                <div class="qty">
-                  <label for="qty-twinstars" style="color:var(--muted);font-size:13px;">Qty</label>
-                  <input id="qty-twinstars" type="number" min="1" value="1" class="qtyInput" />
-                </div>
-                <button class="btn btnPrimary addBtn" type="button">Add to Cart</button>
-              </div>
-            </div>
-          </article>
-
-          <!-- Topside Curb Art (re-uses american-1.jpg) -->
-          <article class="product" data-sku="topside" data-title="Topside Curb Art (One Side)" data-base="50">
-            <div class="carousel">
-              <div class="track">
-                <div class="slide">
-                  <img src="images/american-1.jpg" alt="Topside curb art American flag example" />
-                </div>
-                <div class="slide">
-                  <div class="placeholder">Topside — add Texas option photo later</div>
-                </div>
-              </div>
-              <button class="navBtn prev" type="button" aria-label="Previous image">‹</button>
-              <button class="navBtn next" type="button" aria-label="Next image">›</button>
-              <div class="dots"><div class="dot active"></div><div class="dot"></div></div>
-            </div>
-
-            <div class="pBody">
-              <div class="pTitle"><h3>Topside Curb Art (One Side)</h3><div class="price">$50</div></div>
-              <div class="desc">Topside design option. <b>Disclaimer:</b> this is for <b>one side</b> only.</div>
-
-              <label class="select">
-                <span>Design</span>
-                <select class="topsideDesign">
-                  <option value="Texas Flag">Texas Flag</option>
-                  <option value="American Flag" selected>American Flag</option>
-                </select>
-              </label>
-
-              <div class="row">
-                <div class="qty">
-                  <label for="qty-topside" style="color:var(--muted);font-size:13px;">Qty</label>
-                  <input id="qty-topside" type="number" min="1" value="1" class="qtyInput" />
-                </div>
-                <button class="btn btnPrimary addBtn" type="button">Add to Cart</button>
-              </div>
-            </div>
-          </article>
-
-        </div>
-      </section>
-
-      <!-- CART + ADD-ONS -->
-      <aside class="card">
-        <div class="cardHeader">
-          <h2>Your Cart</h2>
-          <button class="btn" type="button" id="clearCart">Clear</button>
-        </div>
-
-        <div class="cartBody">
-          <div class="cartList" id="cartList"></div>
-
-          <div class="totalRow">
-            <span>Total</span>
-            <span id="total">$0</span>
           </div>
 
-          <div style="margin-top:14px; font-weight:800;">Add-ons</div>
-
-          <label class="checkbox" style="margin-top:10px;">
-            <span>Border add-on <span class="addonPrice">+$5</span></span>
-            <input type="checkbox" id="addonBorder" />
-          </label>
-
-          <label class="select" style="margin-top:10px;">
-            <span>Top-down art add-on</span>
-            <select id="addonTopdown">
-              <option value="">None</option>
-              <option value="Texas Flag">Texas Flag (+$15)</option>
-              <option value="American Flag">American Flag (+$20)</option>
-            </select>
-          </label>
-
-          <div class="tiny">
-            Tip: Top-down art looks best if your curb has enough flat space above the numbers.
-          </div>
-
-          <button class="contactBtn" id="contactNow" type="button">Contact Now</button>
-          <div class="tiny">You’ll see the phone number only after clicking Contact Now.</div>
+          <div class="dots" id="dots" aria-label="Carousel page indicators"></div>
         </div>
-      </aside>
-    </div>
+
+        <div style="height:14px"></div>
+
+        <!-- Add-ons -->
+        <div class="panel" style="background:transparent;border:none;box-shadow:none;">
+          <div class="hd" style="border:1px solid var(--stroke);border-radius:var(--r2); background: rgba(255,255,255,.04);">
+            <h2>Add-ons</h2>
+            <p>These apply to your order total.</p>
+          </div>
+          <div class="bd" style="padding:14px 0 0;">
+            <div class="addons">
+              <div class="addon">
+                <div class="icon">
+                  <img alt="Border add-on preview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect x='10' y='10' width='44' height='44' rx='8' fill='%23000000'/%3E%3Crect x='14' y='14' width='36' height='36' rx='6' fill='none' stroke='%234aa3ff' stroke-width='4'/%3E%3C/svg%3E" />
+                </div>
+                <div style="flex:1 1 auto;">
+                  <label style="font-weight:850;">Border <span style="color:var(--blue);font-weight:950;">+$5</span></label>
+                  <div style="color:var(--muted);font-size:13px;line-height:1.35;">Adds a clean border around the art for extra definition.</div>
+                  <div style="margin-top:8px;">
+                    <label style="display:flex;gap:10px;align-items:center;color:var(--muted);font-size:12px;">
+                      <input type="checkbox" id="addonBorder" />
+                      Add Border to cart
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:14px"></div>
+
+        <!-- Notes -->
+        <div class="panel" style="background:transparent;border:none;box-shadow:none;">
+          <div class="hd" style="border:1px solid var(--stroke);border-radius:var(--r2); background: rgba(255,255,255,.04);">
+            <h2>Quotes / Special Requests</h2>
+            <p>If you want something custom, type details here. It will be included in your text message.</p>
+          </div>
+          <div class="bd" style="padding:14px 0 0;">
+            <input class="input" id="addressInput" placeholder="Address or cross streets (optional)" />
+            <div style="height:10px"></div>
+            <textarea id="notesInput" placeholder="Notes (colors, house number, timing, special request, etc.)"></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT -->
+    <aside class="panel cart">
+      <div class="hd">
+        <h2>Your cart</h2>
+        <p>When you’re ready, tap <b>Contact Now</b> to send your order.</p>
+      </div>
+      <div class="bd">
+        <div id="cartList" class="cartlist"></div>
+        <div id="cartEmpty" class="empty">Cart is empty — add a service to get started.</div>
+
+        <div class="totals">
+          <div class="line"><span>Subtotal</span><b id="subtotal">$0</b></div>
+          <div class="line"><span>Add-ons</span><b id="addonsTotal">$0</b></div>
+          <div class="line grand"><span>Total</span><b id="grandTotal" style="color:var(--blue)">$0</b></div>
+        </div>
+
+        <div style="height:12px"></div>
+
+        <!-- ONLY checkout contact button -->
+        <a class="btn primary" id="contactNow" href="#" style="width:100%;justify-content:center;">
+          Contact Now
+        </a>
+
+        <!-- Coming soon note -->
+        <div class="coming-soon">
+          <b>Coming Soon Deal:</b> Items marked as <b>“Coming Soon”</b> are <b>50% off</b>.
+          <div class="pill">You’ll add the “Coming Soon” labels later ✅</div>
+        </div>
+
+        <div class="footnote">
+          No payment is collected on this page. Your order will open as a text message draft.
+        </div>
+      </div>
+    </aside>
   </main>
 
-  <!-- Modal -->
-  <div class="modal" id="modal">
-    <div class="modalCard">
-      <div class="modalHead">
-        <strong>Contact Gway Paints</strong>
-        <button class="x" type="button" id="closeModal">✕</button>
-      </div>
-      <div class="modalBody">
-        <div style="color:var(--muted);font-size:13px;line-height:1.35;">
-          Tell me what you want (Plain / Texas / American / Twin Stars), your address, and any add-ons.
-        </div>
-
-        <div class="callRow">
-          <div>
-            <div style="color:var(--muted);font-size:12px;">Call / Text</div>
-            <div class="phone" id="phoneText">+1 682 816 5741</div>
-          </div>
-          <a class="callLink" id="telLink" href="tel:+16828165741">📞 Call Now</a>
-        </div>
-
-        <div class="tiny" id="orderSummary"></div>
-      </div>
-    </div>
-  </div>
-
   <script>
-    const PHONE_TEXT = "+1 682 816 5741";
-    const PHONE_TEL  = "+16828165741";
-    const ADDON_BORDER_PRICE = 5;
-    const TOPDOWN_PRICE = { "Texas Flag": 15, "American Flag": 20 };
-    const cart = [];
-    const money = (n) => "$" + (Math.round(n * 100) / 100).toFixed(0);
+    // Phone number NEVER displayed — only used for sms: link.
+    const PHONE_E164 = "+16828165741";
 
-    function getGlobalAddons() {
-      const border = document.getElementById("addonBorder").checked;
-      const topdown = document.getElementById("addonTopdown").value;
-      return { border, topdown };
+    const ADDONS = { border: { id:"border", name:"Border", price:5 } };
+    const cart = []; // {id,name,price,qty,kind:'product'|'addon'}
+
+    const fmt = n => "$" + (Math.round(n * 100) / 100).toFixed(0);
+    const byId = id => document.getElementById(id);
+
+    function upsertItem(item){
+      const idx = cart.findIndex(x => x.id === item.id && x.kind === item.kind);
+      if(idx >= 0) cart[idx].qty += item.qty;
+      else cart.push(item);
+      renderCart();
     }
-
-    function calcItemPrice(item) {
-      const base = item.base;
-      const doubleSided = item.doubleSided ? 20 : 0;
-      return (base + doubleSided) * item.qty;
-    }
-
-    function calcTotal() {
-      let total = cart.reduce((sum, it) => sum + calcItemPrice(it), 0);
-      const g = getGlobalAddons();
-      if (g.border) total += ADDON_BORDER_PRICE;
-      if (g.topdown) total += (TOPDOWN_PRICE[g.topdown] || 0);
-      return total;
-    }
-
-    function renderCart() {
-      const list = document.getElementById("cartList");
-      list.innerHTML = "";
-
-      if (cart.length === 0) {
-        const empty = document.createElement("div");
-        empty.className = "tiny";
-        empty.textContent = "Cart is empty — add a service to start.";
-        list.appendChild(empty);
-      } else {
-        cart.forEach((it, idx) => {
-          const row = document.createElement("div");
-          row.className = "cartItem";
-
-          const left = document.createElement("div");
-          const title = document.createElement("div");
-          title.style.fontWeight = "900";
-          title.textContent = `${it.title} ×${it.qty}`;
-
-          const meta = document.createElement("small");
-          const bits = [];
-          if (it.doubleSided) bits.push("Double-sided +$20");
-          if (it.sku === "topside" && it.topsideDesign) bits.push(`Design: ${it.topsideDesign}`);
-          meta.textContent = bits.join(" • ");
-
-          left.appendChild(title);
-          if (bits.length) left.appendChild(meta);
-
-          const right = document.createElement("div");
-          right.style.textAlign = "right";
-
-          const price = document.createElement("div");
-          price.style.fontWeight = "900";
-          price.textContent = money(calcItemPrice(it));
-
-          const remove = document.createElement("button");
-          remove.className = "btn";
-          remove.style.marginTop = "8px";
-          remove.type = "button";
-          remove.textContent = "Remove";
-          remove.onclick = () => {
-            cart.splice(idx, 1);
-            renderCart();
-          };
-
-          right.appendChild(price);
-          right.appendChild(remove);
-
-          row.appendChild(left);
-          row.appendChild(right);
-          list.appendChild(row);
-        });
+    function setAddonInCart(addonId, enabled){
+      const addon = ADDONS[addonId];
+      if(!addon) return;
+      const idx = cart.findIndex(x => x.id === addon.id && x.kind === "addon");
+      if(enabled){
+        if(idx >= 0) return;
+        cart.push({ id:addon.id, name:addon.name, price:addon.price, qty:1, kind:"addon" });
+      }else{
+        if(idx >= 0) cart.splice(idx,1);
       }
+    }
+    function removeAt(i){ cart.splice(i,1); renderCart(); }
+    function totals(){
+      let sub = 0, add = 0;
+      cart.forEach(it=>{
+        const line = it.price * it.qty;
+        if(it.kind === "addon") add += line; else sub += line;
+      });
+      return { sub, add, grand: sub + add };
+    }
+    function cartText(){
+      const { sub, add, grand } = totals();
+      const lines = [];
+      lines.push("Gway Paints Order");
+      lines.push("-----------------");
+      if(cart.length === 0) lines.push("Cart: (empty)");
+      else cart.forEach(it => lines.push(`${it.qty}x ${it.name} - ${fmt(it.price * it.qty)}`));
+      lines.push("-----------------");
+      lines.push(`Subtotal: ${fmt(sub)}`);
+      lines.push(`Add-ons: ${fmt(add)}`);
+      lines.push(`Total: ${fmt(grand)}`);
 
-      document.getElementById("total").textContent = money(calcTotal());
+      const addr = byId("addressInput").value.trim();
+      const notes = byId("notesInput").value.trim();
+      if(addr) lines.push(`Address: ${addr}`);
+      if(notes) lines.push(`Notes: ${notes}`);
+      return lines.join("\n");
+    }
+    function makeSmsLink(){
+      const body = encodeURIComponent(cartText());
+      return `sms:${PHONE_E164}?&body=${body}`;
+    }
+    function updateContactLinks(){
+      byId("contactNow").href = makeSmsLink();
+    }
+    function renderCart(){
+      const list = byId("cartList");
+      list.innerHTML = "";
+      byId("cartEmpty").style.display = cart.length ? "none" : "block";
+
+      cart.forEach((it, i)=>{
+        const div = document.createElement("div");
+        div.className = "cartitem";
+        const isAddon = it.kind === "addon";
+        div.innerHTML = `
+          <div class="top">
+            <div>
+              <div class="title">${it.qty}x ${it.name}</div>
+              <div class="meta">${isAddon ? "Add-on" : "Service"} • ${fmt(it.price)} each</div>
+            </div>
+            <button class="x" aria-label="Remove item">X</button>
+          </div>
+          <div class="row">
+            <span style="color:var(--muted);font-size:13px;">Line total</span>
+            <b style="color:${isAddon ? "var(--blue)" : "var(--text)"};">${fmt(it.price * it.qty)}</b>
+          </div>
+        `;
+        div.querySelector(".x").addEventListener("click", ()=>removeAt(i));
+        list.appendChild(div);
+      });
+
+      const t = totals();
+      byId("subtotal").textContent = fmt(t.sub);
+      byId("addonsTotal").textContent = fmt(t.add);
+      byId("grandTotal").textContent = fmt(t.grand);
+      byId("topTotal").textContent = fmt(t.grand);
+
+      updateContactLinks();
     }
 
-    document.querySelectorAll(".product").forEach(prod => {
-      const addBtn = prod.querySelector(".addBtn");
-      addBtn.addEventListener("click", () => {
-        const sku = prod.dataset.sku;
-        const title = prod.dataset.title;
-        const base = Number(prod.dataset.base);
+    // Wire product buttons (keeps topside variant)
+    document.querySelectorAll(".card").forEach(card=>{
+      const btn = card.querySelector(".addbtn");
+      const qtyInput = card.querySelector(".qty");
+      const variantSelect = card.querySelector(".variant");
+      if(!btn) return;
 
-        const qty = Math.max(1, Number(prod.querySelector(".qtyInput").value || 1));
-        const doubleSided = !!prod.querySelector(".doubleSided")?.checked;
+      btn.addEventListener("click", ()=>{
+        const baseId = card.dataset.id;
+        const baseName = card.dataset.name;
+        const price = Number(card.dataset.price);
+        const qty = Math.max(1, Number(qtyInput?.value || 1));
 
-        let topsideDesign = null;
-        if (sku === "topside") topsideDesign = prod.querySelector(".topsideDesign")?.value || "Texas Flag";
-
-        cart.push({ sku, title, base, qty, doubleSided, topsideDesign });
-        renderCart();
+        let finalId = baseId;
+        let finalName = baseName;
+        if(variantSelect){
+          const v = variantSelect.value;
+          finalId = `${baseId}_${v.toLowerCase().replace(/\s+/g,'_')}`;
+          finalName = `${baseName} (${v})`;
+        }
+        upsertItem({ id: finalId, name: finalName, price, qty, kind:"product" });
       });
     });
 
-    document.getElementById("addonBorder").addEventListener("change", renderCart);
-    document.getElementById("addonTopdown").addEventListener("change", renderCart);
-
-    document.getElementById("clearCart").addEventListener("click", () => {
-      cart.length = 0;
+    // Add-ons
+    byId("addonBorder").addEventListener("change", (e)=>{
+      setAddonInCart("border", e.target.checked);
       renderCart();
     });
 
-    const modal = document.getElementById("modal");
-    const closeModal = () => modal.classList.remove("open");
+    byId("addressInput").addEventListener("input", updateContactLinks);
+    byId("notesInput").addEventListener("input", updateContactLinks);
 
-    function buildOrderSummaryText() {
-      const g = getGlobalAddons();
-      const lines = [];
-      if (cart.length === 0) return "No items selected yet.";
+    // ===== Main services carousel (2 per page) =====
+    const track = byId("track");
+    const dotsEl = byId("dots");
+    const slides = Array.from(track.children);
 
-      lines.push("Order summary:");
-      cart.forEach(it => {
-        const parts = [`• ${it.title} x${it.qty}`];
-        if (it.doubleSided) parts.push("Double-sided");
-        if (it.sku === "topside" && it.topsideDesign) parts.push(`Design: ${it.topsideDesign}`);
-        lines.push(parts.join(" — "));
-      });
-
-      const addonLines = [];
-      if (g.border) addonLines.push(`• Border add-on (+$${ADDON_BORDER_PRICE})`);
-      if (g.topdown) addonLines.push(`• Top-down art: ${g.topdown} (+$${TOPDOWN_PRICE[g.topdown]})`);
-      if (addonLines.length) {
-        lines.push("");
-        lines.push("Add-ons:");
-        lines.push(...addonLines);
+    function perPage(){ return window.matchMedia("(max-width: 680px)").matches ? 1 : 2; }
+    let page = 0;
+    function pageCount(){ return Math.ceil(slides.length / perPage()); }
+    function clampPage(p){ return Math.max(0, Math.min(p, pageCount()-1)); }
+    function setPage(p, smooth=true){
+      page = clampPage(p);
+      track.style.transition = smooth ? "transform .28s ease" : "none";
+      const vp = track.parentElement.getBoundingClientRect().width;
+      track.style.transform = `translateX(${-page * vp}px)`;
+      renderDots();
+    }
+    function renderDots(){
+      const count = pageCount();
+      dotsEl.innerHTML = "";
+      for(let i=0;i<count;i++){
+        const d = document.createElement("button");
+        d.className = "dot" + (i===page ? " active" : "");
+        d.type = "button";
+        d.addEventListener("click", ()=>setPage(i,true));
+        dotsEl.appendChild(d);
       }
-
-      lines.push("");
-      lines.push("Estimated total: " + money(calcTotal()));
-      return lines.join("\n");
     }
 
-    document.getElementById("contactNow").addEventListener("click", () => {
-      document.getElementById("phoneText").textContent = PHONE_TEXT;
-      document.getElementById("telLink").setAttribute("href", "tel:" + PHONE_TEL);
-      document.getElementById("orderSummary").textContent = buildOrderSummaryText();
-      modal.classList.add("open");
-    });
+    // Drag / swipe main carousel
+    let isDown=false, startX=0, startTransform=0;
+    function currentTranslateX(el){
+      const m = el.style.transform.match(/translateX\(([-0-9.]+)px\)/);
+      return m ? Number(m[1]) : 0;
+    }
+    function onDown(clientX){
+      isDown=true; startX=clientX; startTransform=currentTranslateX(track);
+      track.style.transition="none";
+    }
+    function onMove(clientX){
+      if(!isDown) return;
+      const dx = clientX - startX;
+      track.style.transform = `translateX(${startTransform + dx}px)`;
+    }
+    function onUp(clientX){
+      if(!isDown) return;
+      isDown=false;
+      const dx = clientX - startX;
+      const threshold = 60;
+      if(dx < -threshold) setPage(page+1,true);
+      else if(dx > threshold) setPage(page-1,true);
+      else setPage(page,true);
+    }
+    const viewport = track.parentElement;
+    viewport.addEventListener("touchstart", (e)=>onDown(e.touches[0].clientX), {passive:true});
+    viewport.addEventListener("touchmove", (e)=>onMove(e.touches[0].clientX), {passive:true});
+    viewport.addEventListener("touchend", (e)=>onUp((e.changedTouches[0]||e.touches[0])?.clientX ?? startX), {passive:true});
+    viewport.addEventListener("mousedown", (e)=>{ e.preventDefault(); onDown(e.clientX); });
+    window.addEventListener("mousemove", (e)=>onMove(e.clientX));
+    window.addEventListener("mouseup", (e)=>onUp(e.clientX));
+    window.addEventListener("resize", ()=>setPage(page,false));
 
-    document.getElementById("closeModal").addEventListener("click", closeModal);
-    modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
-    window.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
+    // ===== Picture carousels inside each card (2 examples) =====
+    function initPicCarousel(root){
+      const t = root.querySelector(".picTrack");
+      const pics = Array.from(t.children);
+      const dotsWrap = root.querySelector(".picDots");
+      let idx = 0;
 
-    function setupCarousel(carouselEl) {
-      const track = carouselEl.querySelector(".track");
-      const slides = Array.from(track.children);
-      const dots = Array.from(carouselEl.querySelectorAll(".dot"));
-      const prev = carouselEl.querySelector(".prev");
-      const next = carouselEl.querySelector(".next");
-
-      let index = 0;
-      const maxIndex = slides.length - 1;
-
-      function update() {
-        track.style.transform = `translateX(${-index * 100}%)`;
-        dots.forEach((d,i) => d.classList.toggle("active", i === index));
-        prev.disabled = index === 0;
-        next.disabled = index === maxIndex;
+      function render(){
+        t.style.transform = `translateX(${-idx * root.clientWidth}px)`;
+        dotsWrap.innerHTML = "";
+        for(let i=0;i<pics.length;i++){
+          const b = document.createElement("button");
+          b.type="button";
+          b.className = "picDot" + (i===idx ? " active" : "");
+          b.addEventListener("click", (e)=>{ e.stopPropagation(); idx=i; render(); });
+          dotsWrap.appendChild(b);
+        }
       }
 
-      prev.addEventListener("click", () => { if (index > 0) { index--; update(); } });
-      next.addEventListener("click", () => { if (index < maxIndex) { index++; update(); } });
+      // Stop main carousel from moving when swiping pics
+      const stop = (e)=>{ e.stopPropagation(); };
 
-      let startX = 0, currentX = 0, dragging = false;
+      let down=false, sx=0, start=0;
+      function cur(){
+        const m = t.style.transform.match(/translateX\(([-0-9.]+)px\)/);
+        return m ? Number(m[1]) : 0;
+      }
+      function pd(x){
+        down=true; sx=x; start=cur();
+        t.style.transition="none";
+      }
+      function pm(x){
+        if(!down) return;
+        const dx = x - sx;
+        t.style.transform = `translateX(${start + dx}px)`;
+      }
+      function pu(x){
+        if(!down) return;
+        down=false;
+        const dx = x - sx;
+        const threshold = 45;
+        if(dx < -threshold) idx = Math.min(idx+1, pics.length-1);
+        else if(dx > threshold) idx = Math.max(idx-1, 0);
+        t.style.transition="transform .28s ease";
+        render();
+      }
 
-      carouselEl.addEventListener("pointerdown", (e) => {
-        dragging = true;
-        startX = e.clientX;
-        currentX = startX;
-        carouselEl.setPointerCapture(e.pointerId);
-      });
+      root.addEventListener("touchstart", (e)=>{ stop(e); pd(e.touches[0].clientX); }, {passive:true});
+      root.addEventListener("touchmove", (e)=>{ stop(e); pm(e.touches[0].clientX); }, {passive:true});
+      root.addEventListener("touchend", (e)=>{ stop(e); pu((e.changedTouches[0]||e.touches[0])?.clientX ?? sx); }, {passive:true});
 
-      carouselEl.addEventListener("pointermove", (e) => {
-        if (!dragging) return;
-        currentX = e.clientX;
-      });
+      root.addEventListener("mousedown", (e)=>{ e.preventDefault(); stop(e); pd(e.clientX); });
+      window.addEventListener("mousemove", (e)=>{ if(down) pm(e.clientX); });
+      window.addEventListener("mouseup", (e)=>{ if(down) pu(e.clientX); });
 
-      carouselEl.addEventListener("pointerup", (e) => {
-        if (!dragging) return;
-        dragging = false;
-        const dx = currentX - startX;
-        if (dx < -50 && index < maxIndex) index++;
-        else if (dx > 50 && index > 0) index--;
-        update();
-        try { carouselEl.releasePointerCapture(e.pointerId); } catch {}
-      });
+      window.addEventListener("resize", ()=>{ t.style.transition="none"; render(); });
 
-      update();
+      t.style.transition="transform .28s ease";
+      render();
     }
 
-    document.querySelectorAll(".carousel").forEach(setupCarousel);
+    document.querySelectorAll("[data-pic-carousel]").forEach(initPicCarousel);
+
+    // Init
+    renderDots();
+    setPage(0,false);
     renderCart();
   </script>
 </body>
