@@ -392,6 +392,14 @@
     }
     .coming-soon b{ color: var(--text); }
 
+    .miniLabel{
+      display:block;
+      font-size: 12px;
+      font-weight: 850;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
     .footnote{
       margin-top:10px;
       color:var(--muted);
@@ -400,7 +408,128 @@
       border-top:1px dashed rgba(255,255,255,.14);
       padding-top:10px;
     }
-  </style>
+  
+    /* --- Mockup background (place this file at images/city-graffiti.jpg) --- */
+    body{
+      background: #0b0f1a;
+    }
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:
+        radial-gradient(1100px 520px at 50% 18%, rgba(138,91,255,.28), rgba(0,0,0,0) 62%),
+        linear-gradient(to bottom, rgba(0,0,0,.20), rgba(0,0,0,.78) 55%, rgba(0,0,0,.92)),
+        url("images/city-graffiti.png");
+      background-size: cover;
+      background-position: center;
+      z-index:-2;
+      filter:saturate(1.06);
+    }
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:
+        radial-gradient(900px 450px at 18% 16%, rgba(70,170,255,.18), rgba(0,0,0,0) 65%),
+        radial-gradient(900px 450px at 82% 24%, rgba(255,80,120,.14), rgba(0,0,0,0) 70%);
+      z-index:-1;
+      pointer-events:none;
+    }
+
+
+    /* --- Galaxy themed service cards --- */
+    .galaxyCard{
+      position:relative;
+      border:none !important;
+      background: transparent !important;
+      overflow: hidden;
+      border-radius: 22px;
+    }
+    .galaxyCard::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      border-radius: 24px;
+      background:
+        radial-gradient(120px 90px at 15% 18%, rgba(120,240,255,.95), rgba(0,0,0,0) 60%),
+        radial-gradient(140px 120px at 85% 25%, rgba(255,120,220,.95), rgba(0,0,0,0) 62%),
+        radial-gradient(180px 140px at 35% 85%, rgba(155,95,255,.90), rgba(0,0,0,0) 65%),
+        linear-gradient(135deg, rgba(70,170,255,.75), rgba(140,80,255,.85), rgba(255,90,170,.65));
+      z-index:0;
+    }
+    .galaxyCard::after{
+      content:"";
+      position:absolute;
+      inset:3px;
+      border-radius: 20px;
+      background: rgba(0,0,0,.55);
+      z-index:1;
+    }
+    .galaxyCard > *{
+      position:relative;
+      z-index:2;
+    }
+    /* Make the top name look like a pill */
+    .galaxyCard .name{
+      display:inline-flex;
+      padding:7px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,.88);
+      color:#0c0f18;
+      font-weight: 950;
+      letter-spacing:.2px;
+      margin: 6px 0 8px;
+    }
+    /* Make price prominent like the mockup */
+    .galaxyCard .price{
+      font-size: 0; /* hide old inline price in row */
+    }
+    .galaxyCard .priceBar{
+      margin-top: 12px;
+      background: rgba(0,0,0,.78);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius: 14px;
+      padding:10px 12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:1000;
+      font-size:26px;
+      letter-spacing:.5px;
+    }
+    /* Ensure inner content stays above overlays */
+    .galaxyCard .picCarousel,
+    .galaxyCard .content{
+      position:relative;
+      z-index:2;
+    }
+
+    /* Tighten card content spacing */
+    .galaxyCard .content{
+      padding: 14px 14px 12px;
+    }
+
+
+    /* --- Mockup Why panel --- */
+    #why .hd h2{ font-size: 34px; font-weight: 950; }
+    #why .hd p{ color: var(--muted); }
+
+
+    .truckWrap{
+      margin-top:14px;
+      width:100%;
+      display:flex;
+      justify-content:center;
+    }
+    .truckWrap img{
+      max-width:100%;
+      height:auto;
+      display:block;
+      filter: drop-shadow(0 22px 50px rgba(0,0,0,.65));
+    }
+
+</style>
 </head>
 
 <body>
@@ -414,6 +543,7 @@
 
         <!-- ONLY total up top -->
         <div class="top-actions">
+          <button class="btn" id="contactTop" type="button">Contact</button>
           <span class="btn" style="pointer-events:none;">Total: <b id="topTotal" style="color:var(--blue)">$0</b></span>
         </div>
       </div>
@@ -424,7 +554,7 @@
     <!-- LEFT -->
     <section class="panel">
       <div class="hd">
-        <h2>Choose your curb art</h2>
+        <h2>Choose your art!</h2>
         <p>Swipe through services, and swipe each picture for <b>example looks</b>.</p>
       </div>
 
@@ -435,7 +565,7 @@
 
               <!-- Plain -->
               <div class="slide">
-                <article class="card" data-id="plain" data-name="Plain" data-price="20">
+                <article class="card galaxyCard" data-id="plain" data-name="Plain" data-price="20">
                   <div class="picCarousel" data-pic-carousel>
                     <div class="picTrack">
                       <div class="pic">
@@ -451,15 +581,16 @@
                   </div>
                   <div class="content">
                     <div class="row"><p class="name">Plain</p><span class="price">$20</span></div>
-                    <p class="desc">Clean numbers + outline. Great if you want it simple and readable.</p>
+                    <p class="desc">Plain — if you just want your numbers.</p>
                     <button class="addbtn">Add to cart</button>
+                    <div class="priceBar">$20</div>
                   </div>
                 </article>
               </div>
 
               <!-- Texas Flag -->
               <div class="slide">
-                <article class="card" data-id="txflag" data-name="Texas Flag" data-price="40">
+                <article class="card galaxyCard" data-id="txflag" data-name="Texas Flag" data-price="40">
                   <div class="picCarousel" data-pic-carousel>
                     <div class="picTrack">
                       <div class="pic">
@@ -481,13 +612,14 @@
                     <div class="row"><p class="name">Texas Flag</p><span class="price">$40</span></div>
                     <p class="desc">Texas flag theme with strong contrast—stands out from the street.</p>
                     <button class="addbtn">Add to cart</button>
+                    <div class="priceBar">$40</div>
                   </div>
                 </article>
               </div>
 
               <!-- Twin Stars -->
               <div class="slide">
-                <article class="card" data-id="twinstars" data-name="Twin Stars" data-price="25">
+                <article class="card galaxyCard" data-id="twinstars" data-name="Twin Stars" data-price="25">
                   <div class="picCarousel" data-pic-carousel>
                     <div class="picTrack">
                       <div class="pic">
@@ -505,13 +637,14 @@
                     <div class="row"><p class="name">Twin Stars</p><span class="price">$25</span></div>
                     <p class="desc">Twin stars style with a bold look that still keeps numbers readable.</p>
                     <button class="addbtn">Add to cart</button>
+                    <div class="priceBar">$25</div>
                   </div>
                 </article>
               </div>
 
               <!-- American Flag -->
               <div class="slide">
-                <article class="card" data-id="usflag" data-name="American Flag" data-price="50">
+                <article class="card galaxyCard" data-id="usflag" data-name="American Flag" data-price="50">
                   <div class="picCarousel" data-pic-carousel>
                     <div class="picTrack">
                       <div class="pic">
@@ -529,13 +662,14 @@
                     <div class="row"><p class="name">American Flag</p><span class="price">$50</span></div>
                     <p class="desc">American flag theme with bold presence and clean readability.</p>
                     <button class="addbtn">Add to cart</button>
+                    <div class="priceBar">$50</div>
                   </div>
                 </article>
               </div>
 
               <!-- Topside Curb Art -->
               <div class="slide">
-                <article class="card" data-id="topside" data-name="Topside Curb Art" data-price="50">
+                <article class="card galaxyCard" data-id="topside" data-name="Topside Curb Art" data-price="50">
                   <div class="picCarousel" data-pic-carousel>
                     <div class="picTrack">
                       <div class="pic">
@@ -561,6 +695,7 @@
                       <option value="American Flag">American Flag</option>
                     </select>
                     <button class="addbtn">Add to cart</button>
+                    <div class="priceBar">$50</div>
                   </div>
                 </article>
               </div>
@@ -602,20 +737,14 @@
 
         <div style="height:14px"></div>
 
-        <!-- Notes -->
-        <div class="panel" style="background:transparent;border:none;box-shadow:none;">
-          <div class="hd" style="border:1px solid var(--stroke);border-radius:var(--r2); background: rgba(255,255,255,.04);">
-            <h2>Quotes / Special Requests</h2>
-            <p>If you want something custom, type details here. It will be included in your text message.</p>
-          </div>
-          <div class="bd" style="padding:14px 0 0;">
-            <input class="input" id="addressInput" placeholder="Address or cross streets (optional)" />
-            <div style="height:10px"></div>
-            <textarea id="notesInput" placeholder="Notes (colors, house number, timing, special request, etc.)"></textarea>
-          </div>
-        </div>
-
-      </div>
+        <!-- 
+<div style="text-align:center; margin-top:20px;">
+  <img src="A_high-resolution_digital_photograph_of_a_customiz.png" 
+       alt="Dropped S10 Truck"
+       style="max-width:90%; height:auto; border-radius:12px;">
+</div>
+Why I'm doing this -->
+              </div>
     </section>
 
     <!-- RIGHT -->
@@ -639,14 +768,36 @@
         <!-- ONLY checkout contact button -->
         <a class="btn primary" id="contactNow" href="#" style="width:100%;">Contact Now</a>
 
-        <div class="coming-soon">
-          <b>Coming Soon Deal:</b>
+        <div class="coming-soon" id="checkoutInfo">
+          <b>Required for scheduling:</b> Please enter your <b>first name</b> and your <b>city + neighborhood</b> so I can efficiently finish appointments.
+          <div style="height:10px"></div>
+          <label class="miniLabel" for="firstNameInput">First name (required)</label>
+          <input class="input" id="firstNameInput" autocomplete="given-name" placeholder="First name" required />
+          <div style="height:10px"></div>
+          <label class="miniLabel" for="locationInput">City + neighborhood (required)</label>
+          <input class="input" id="locationInput" autocomplete="address-level2" placeholder="Example: Fort Worth — West 7th" required />
         </div>
 
         <div class="footnote">
           No payment is collected on this page. Your order will open as a text message draft.
         </div>
+      
+
+    <div style="height:14px"></div>
+
+    <section class="panel" id="why">
+      <div class="hd">
+        <h2>Why I’m Doing This</h2>
+        <p>Hi my name is gael, and im working to get a better future for myself by starting my own side hustle buisnesses and hopefully scale and start ecommerce, so i can one day get my dream truck, evry number i paint gets me closer to my goal, thank you for stopping by!</p>
       </div>
+      <div class="bd">
+        <div style="border-radius: var(--r2); overflow:hidden; border:1px solid var(--stroke); background: rgba(0,0,0,.25);">
+          <img src="images/truck.png" alt="Dream truck" style="width:100%; height:auto; display:block;" />
+        </div>
+      </div>
+    </section>
+
+</div>
     </aside>
   </main>
 
@@ -700,17 +851,19 @@
       const lines = [];
       lines.push("Gway Paints Order");
       lines.push("-----------------");
+
+      const firstName = byId("firstNameInput").value.trim();
+      const location = byId("locationInput").value.trim();
+      if(firstName) lines.push(`First name: ${firstName}`);
+      if(location) lines.push(`City/Neighborhood: ${location}`);
+
+      lines.push("-----------------");
       if(cart.length === 0) lines.push("Cart: (empty)");
       else cart.forEach(it => lines.push(`${it.qty}x ${it.name} - ${fmt(it.price * it.qty)}`));
       lines.push("-----------------");
       lines.push(`Subtotal: ${fmt(sub)}`);
       lines.push(`Add-ons: ${fmt(add)}`);
       lines.push(`Total: ${fmt(grand)}`);
-
-      const addr = byId("addressInput").value.trim();
-      const notes = byId("notesInput").value.trim();
-      if(addr) lines.push(`Address: ${addr}`);
-      if(notes) lines.push(`Notes: ${notes}`);
       return lines.join("\n");
     }
 
@@ -788,8 +941,38 @@
       renderCart();
     });
 
-    byId("addressInput").addEventListener("input", updateContactLinks);
-    byId("notesInput").addEventListener("input", updateContactLinks);
+    byId("firstNameInput").addEventListener("input", updateContactLinks);
+    byId("locationInput").addEventListener("input", updateContactLinks);
+
+    // Require first name + city/neighborhood before opening the SMS draft
+    byId("contactNow").addEventListener("click", (e)=>{
+      e.preventDefault();
+      const firstName = byId("firstNameInput").value.trim();
+      const location = byId("locationInput").value.trim();
+
+      if(cart.length === 0){
+        alert("Please add a service to your cart first.");
+        return;
+      }
+      if(!firstName){
+        alert("Please enter your first name before checking out.");
+        byId("firstNameInput").focus();
+        return;
+      }
+      if(!location){
+        alert("Please enter your city and neighborhood before checking out.");
+        byId("locationInput").focus();
+        return;
+      }
+
+      // Open text message draft
+      window.location.href = makeSmsLink();
+
+      // On-web confirmation (the actual reply will come via text)
+      setTimeout(()=>{
+        alert("Thank you! Send the text message that opens, and you’ll get a response soon.");
+      }, 400);
+    });
 
     // ===== Main services carousel (2 per page) =====
     const track = byId("track");
@@ -948,6 +1131,14 @@
     renderDots();
     setPage(0,false);
     renderCart();
-  </script>
-</body>
+  
+    // Top Contact button scrolls to the cart/checkout panel
+    const contactTop = document.getElementById('contactTop');
+    if (contactTop){
+      contactTop.addEventListener('click', ()=>{
+        const cartPanel = document.querySelector('aside.panel.cart');
+        if (cartPanel) cartPanel.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    }
+</script></body>
 </html>
