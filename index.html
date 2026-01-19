@@ -634,7 +634,7 @@
 
               <!-- Twin Stars -->
               <div class="slide">
-                <article class="card galaxyCard" data-id="twinstars" data-name="Twin Stars" data-price="25" data-coming-soon="1">
+                <article class="card galaxyCard" data-id="twinstars" data-name="Twin Stars" data-price="25">
                   <div class="picCarousel" data-pic-carousel>
                     <div class="picTrack">
 <div class="pic">
@@ -651,7 +651,7 @@
                   <div class="content">
                     <div class="row"><p class="name">Twin Stars</p><span class="price">$25</span></div>
                     <p class="desc">Twin stars style with a bold look that still keeps numbers readable.</p>
-                    <button class="addbtn" disabled aria-disabled="true">Coming soon</button>
+                    <button class="addbtn">Add to cart</button>
                     <div class="priceBar">$25</div>
                   </div>
                 </article>
@@ -684,7 +684,7 @@
 
               <!-- Topside Curb Art -->
               <div class="slide">
-                <article class="card galaxyCard" data-id="topside" data-name="Topside Curb Art" data-price="50" data-coming-soon="1">
+                <article class="card galaxyCard" data-id="topside" data-name="Topside Curb Art" data-price="50">
                   <div class="picCarousel" data-pic-carousel>
                     <div class="picTrack">
 <div class="pic">
@@ -709,7 +709,7 @@
                       <option value="Texas Flag">Texas Flag</option>
                       <option value="American Flag">American Flag</option>
                     </select>
-                    <button class="addbtn" disabled aria-disabled="true">Coming soon</button>
+                    <button class="addbtn">Add to cart</button>
                     <div class="priceBar">$50</div>
                   </div>
                 </article>
@@ -1160,9 +1160,11 @@ Why I'm doing this -->
       });
     }
 
-// Coming-soon fallback for missing images (only on cards marked data-coming-soon="1")
+// Coming-soon fallback for missing images (per-image)
+// If an image file doesn't exist (404), we swap just THAT image to a "COMING SOON" placeholder.
 (function(){
   function fallbackDataURI(title){
+    const safe = (title||'Coming Soon').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 700'>
       <defs>
         <linearGradient id='g' x1='0' x2='1' y1='0' y2='1'>
@@ -1170,23 +1172,29 @@ Why I'm doing this -->
           <stop offset='0.55' stop-color='#0b1638'/>
           <stop offset='1' stop-color='#000'/>
         </linearGradient>
+        <filter id='glow' x='-40%' y='-40%' width='180%' height='180%'>
+          <feGaussianBlur stdDeviation='6' result='b'/>
+          <feMerge>
+            <feMergeNode in='b'/>
+            <feMergeNode in='SourceGraphic'/>
+          </feMerge>
+        </filter>
       </defs>
       <rect width='1200' height='700' fill='url(#g)'/>
-      <text x='50%' y='44%' text-anchor='middle' font-family='system-ui,-apple-system,Segoe UI,Roboto,Arial' font-size='74' fill='white' font-weight='900'>COMING SOON</text>
-      <text x='50%' y='58%' text-anchor='middle' font-family='system-ui,-apple-system,Segoe UI,Roboto,Arial' font-size='44' fill='rgba(255,255,255,.85)' font-weight='800'>${TITLE}</text>
-    </svg>`.replace('${TITLE}', (title||'Coming Soon').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'));
+      <text x='50%' y='44%' text-anchor='middle' font-family='system-ui,-apple-system,Segoe UI,Roboto,Arial' font-size='78' fill='white' font-weight='900' filter='url(#glow)'>COMING SOON</text>
+      <text x='50%' y='58%' text-anchor='middle' font-family='system-ui,-apple-system,Segoe UI,Roboto,Arial' font-size='44' fill='rgba(255,255,255,.88)' font-weight='800'>${safe}</text>
+      <text x='50%' y='68%' text-anchor='middle' font-family='system-ui,-apple-system,Segoe UI,Roboto,Arial' font-size='26' fill='rgba(255,255,255,.65)'>Remove this slide’s image to keep this placeholder</text>
+    </svg>`;
     return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
   }
 
-  document.querySelectorAll('article.card[data-coming-soon="1"]').forEach(card=>{
-    card.querySelectorAll('img.realpic').forEach(img=>{
-      img.addEventListener('error', ()=>{
-        const title = img.getAttribute('data-fallback-title') || card.querySelector('.titlePill')?.textContent || 'Coming Soon';
-        img.src = fallbackDataURI(title);
-        const pic = img.closest('.pic');
-        if (pic) pic.classList.add('missingImg');
-      }, { once:true });
-    });
+  document.querySelectorAll('img.realpic').forEach(img=>{
+    img.addEventListener('error', ()=>{
+      const title = img.getAttribute('data-fallback-title') || img.alt || 'Coming Soon';
+      img.src = fallbackDataURI(title);
+      const pic = img.closest('.pic');
+      if (pic) pic.classList.add('missingImg');
+    }, { once:true });
   });
 })();
 </script></body>
